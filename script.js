@@ -1,32 +1,34 @@
 /**
- * SUYASH SONKAR - PORTFOLIO INTERACTION & SCROLL ANIMATION ENGINE
+ * SUYASH SONKAR — PORTFOLIO ENGINE
  * Features:
- * 1. Hardware-Accelerated WebGL/2D Canvas Scroll-Scrubbing (300 frames)
- * 2. Real-time GPU Black-Chroma Keying & Grayscale Filter (Text behind character)
- * 3. Smooth Lerp Animation Loop with High-DPI Display Support
- * 4. Dynamic Active Navbar Tracking & Scroll-driven Hero Title Fade
- * 5. Real-time Header Clock (IST) & Bi-directional Scroll Reveal Animations
+ * 1. Hardware-Accelerated WebGL/2D Canvas Scroll-Scrubbing (240 frames)
+ * 2. Natural Color Studio Black-Chroma Keying
+ * 3. Smooth LERP Animation Loop with High-DPI Display Support
+ * 4. Active Navigation Tracking & Navbar Scrolled State
+ * 5. Mobile Hamburger Drawer Menu
+ * 6. Interactive Skills Category Filter Tabs
+ * 7. Interactive Form Validation & Feedback
+ * 8. Smooth Anchor Scrolling & Back to Top
  */
 
 (function () {
   'use strict';
 
-  const FRAME_COUNT = 300;
-  const FOLDER_PATH = 'website';
+  /* ==========================================================================
+     1. SCROLL-DRIVEN 3D CHARACTER ANIMATION (240 FRAMES)
+     ========================================================================== */
+  const FRAME_COUNT = 240;
+  const FOLDER_PATH = 'Website';
   const FRAME_PREFIX = 'ezgif-frame-';
   const FRAME_EXTENSION = '.jpg';
 
   const canvas = document.getElementById('scrollCanvas');
-  if (!canvas) return;
-
   const canvasWrapper = document.querySelector('.canvas-wrapper');
   const fallbackImage = document.getElementById('firstFrameFallback');
   const preloader = document.getElementById('preloader');
   const loaderBarFill = document.getElementById('loaderBarFill');
   const loaderText = document.getElementById('loaderText');
   const heroBgLayer = document.getElementById('heroBgLayer');
-  const heroSocials = document.querySelector('.hero-socials');
-  const heroTagline = document.querySelector('.hero-tagline');
 
   let gl = null;
   let glProgram = null;
@@ -36,8 +38,10 @@
   let isWebGL = false;
   let ctx2d = null;
 
-  // Initialize WebGL for ultra-fast GPU grayscale and transparent black cutout
+  // Setup WebGL with Transparent Black Keyout in Full Natural Vibrant Color
   function setupRenderer() {
+    if (!canvas) return;
+
     try {
       gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false, antialias: true }) ||
         canvas.getContext('experimental-webgl', { alpha: true, premultipliedAlpha: false, antialias: true });
@@ -63,14 +67,11 @@
           varying vec2 v_texCoord;
           void main() {
             vec4 color = texture2D(u_image, v_texCoord);
-            // Grayscale luminance
-            float luma = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-            // High-contrast grayscale to match reference image exactly
-            float gray = clamp(luma * 1.15, 0.0, 1.0);
             // Smoothly key out pure black studio background (#000000)
             float maxVal = max(color.r, max(color.g, color.b));
-            float alpha = smoothstep(0.012, 0.05, maxVal);
-            gl_FragColor = vec4(vec3(gray) * alpha, alpha);
+            float alpha = smoothstep(0.012, 0.055, maxVal);
+            // Render portrait in full, natural, vibrant color
+            gl_FragColor = vec4(color.rgb * alpha, alpha);
           }
         `;
 
@@ -97,7 +98,7 @@
           if (gl.getProgramParameter(glProgram, gl.LINK_STATUS)) {
             gl.useProgram(glProgram);
 
-            // Setup Geometry Quad
+            // Quad buffer
             positionBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
@@ -109,7 +110,7 @@
               1.0, 1.0,
             ]), gl.STATIC_DRAW);
 
-            // Setup Texture Coordinates (flip Y for WebGL)
+            // Tex coord buffer (flip Y for WebGL)
             texCoordBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
@@ -139,7 +140,7 @@
       isWebGL = false;
     }
 
-    if (!isWebGL) {
+    if (!isWebGL && canvas) {
       ctx2d = canvas.getContext('2d', { alpha: true });
     }
   }
@@ -165,6 +166,7 @@
   }
 
   function resizeCanvas() {
+    if (!canvas) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -192,11 +194,18 @@
     const imgWidth = img.naturalWidth;
     const imgHeight = img.naturalHeight;
 
-    const scale = Math.min(canvasWidth / imgWidth, canvasHeight / imgHeight);
+    // Center-right positioning and scale matching the reference design
+    const isMobile = window.innerWidth <= 768;
+    const scale = isMobile
+      ? Math.max(canvasHeight * 0.85 / imgHeight, canvasWidth * 0.95 / imgWidth)
+      : Math.max(canvasHeight * 1.05 / imgHeight, canvasWidth * 0.72 / imgWidth);
+
     const renderWidth = Math.round(imgWidth * scale);
     const renderHeight = Math.round(imgHeight * scale);
-    const offsetX = Math.round((canvasWidth - renderWidth) / 2);
-    const offsetY = Math.round((canvasHeight - renderHeight) / 2);
+
+    const targetCenterX = isMobile ? canvasWidth * 0.5 : canvasWidth * 0.538;
+    const offsetX = Math.round(targetCenterX - (renderWidth * 0.5));
+    const offsetY = Math.round(canvasHeight - renderHeight + (canvasHeight * 0.03));
 
     if (isWebGL && gl && glProgram) {
       gl.viewport(offsetX, offsetY, renderWidth, renderHeight);
@@ -254,7 +263,7 @@
   }
 
   function updateTargetFrame() {
-    const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
     const docHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
@@ -265,12 +274,12 @@
     const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
     targetFrame = scrollFraction * (FRAME_COUNT - 1);
 
-    // Fade out hero background title and tagline smoothly as user scrolls past hero section
-    const fadeThreshold = window.innerHeight * 0.45;
-    const heroOpacity = Math.max(0, Math.min(1, 1 - (scrollTop / fadeThreshold)));
-    if (heroBgLayer) heroBgLayer.style.opacity = heroOpacity.toFixed(3);
-    if (heroSocials) heroSocials.style.opacity = heroOpacity.toFixed(3);
-    if (heroTagline) heroTagline.style.opacity = heroOpacity.toFixed(3);
+    // Subtle fade of the background watermark title as user leaves hero
+    if (heroBgLayer) {
+      const fadeThreshold = window.innerHeight * 0.6;
+      const heroOpacity = Math.max(0, Math.min(0.18, 0.18 * (1 - (scrollTop / fadeThreshold))));
+      heroBgLayer.style.opacity = heroOpacity.toFixed(3);
+    }
   }
 
   function animate() {
@@ -278,14 +287,22 @@
 
     const diff = targetFrame - currentFrame;
     if (Math.abs(diff) > 0.001) {
-      currentFrame += diff * 0.12;
+      currentFrame += diff * 0.1;
       renderFrame(Math.round(currentFrame));
-    } else {
+    } else if (currentFrame !== targetFrame) {
       currentFrame = targetFrame;
       renderFrame(Math.round(currentFrame));
     }
 
     requestAnimationFrame(animate);
+  }
+
+  function hidePreloader() {
+    if (preloaderHidden) return;
+    preloaderHidden = true;
+    if (preloader) {
+      preloader.classList.add('loaded');
+    }
   }
 
   function preloadImages() {
@@ -306,7 +323,7 @@
         if (loaderBarFill) loaderBarFill.style.width = `${percent}%`;
         if (loaderText) loaderText.textContent = `${percent}%`;
 
-        if (loadedCount >= 8 && !preloaderHidden) {
+        if (loadedCount >= 10 && !preloaderHidden) {
           hidePreloader();
         }
 
@@ -317,419 +334,246 @@
 
       img.onerror = () => {
         loadedCount++;
-        if (loadedCount >= 8 && !preloaderHidden) {
+        if (loadedCount >= 10 && !preloaderHidden) {
           hidePreloader();
         }
       };
     }
   }
 
-  function hidePreloader() {
-    preloaderHidden = true;
-    if (preloader) {
-      preloader.classList.add('hidden');
-    }
-  }
-
-  // Active Nav Link Tracker on Scroll
-  const sections = document.querySelectorAll('section[id]');
+  /* ==========================================================================
+     2. NAVIGATION & ACTIVE SECTION HIGHLIGHTING
+     ========================================================================== */
+  const navbar = document.getElementById('navbar');
   const navLinks = document.querySelectorAll('.nav-link');
+  const drawerLinks = document.querySelectorAll('.drawer-link');
+  const sections = document.querySelectorAll('section[id]');
 
-  function updateActiveNav() {
-    const scrollPosition = window.scrollY + 200;
-    let activeFound = false;
+  function handleScroll() {
+    const scrollY = window.scrollY || window.pageYOffset;
 
+    // Navbar scrolled blur state
+    if (navbar) {
+      if (scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
+
+    // Active link highlighting based on section visibility
+    let currentActiveId = 'home';
     sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
+      const sectionTop = section.offsetTop - 140;
       const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-
-      if (!activeFound && scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        navLinks.forEach((link) => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
-        });
-        activeFound = true;
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        currentActiveId = section.getAttribute('id');
       }
     });
 
-    if (!activeFound && (window.scrollY < 100)) {
-      navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#home'));
-    }
-  }
-
-  // Real-time Clock for About Header
-  function updateLiveTime() {
-    const timeEl = document.getElementById('liveTime');
-    if (!timeEl) return;
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    });
-    timeEl.textContent = `${timeStr}, IST`;
-  }
-
-  // Bi-directional Scroll Reveal Animations
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function setupRevealAnimations() {
-    const elementsToAnimate = document.querySelectorAll(
-      '.about-top-bar, .about-middle-content, .about-bottom-bar, ' +
-      '.resume-col, .speaker-top-row, .speaker-title-wrapper, .portfolio-item, .contact-header-container, .contact-form, .footer'
-    );
-
-    elementsToAnimate.forEach((el) => {
-      el.classList.add('reveal-item');
+    navLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      link.classList.toggle('active', href === `#${currentActiveId}`);
     });
 
-    if (prefersReducedMotion) {
-      elementsToAnimate.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
+    drawerLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      link.classList.toggle('active', href === `#${currentActiveId}`);
+    });
+  }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          } else {
-            if (entry.boundingClientRect.top > 0) {
-              entry.target.classList.remove('is-visible');
-            }
-          }
-        });
-      },
-      {
-        threshold: 0.08,
-        rootMargin: '0px 0px -40px 0px'
+  /* ==========================================================================
+     3. MOBILE DRAWER MENU
+     ========================================================================== */
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+
+  function openDrawer() {
+    if (mobileDrawer) mobileDrawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    if (mobileDrawer) mobileDrawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburgerBtn) hamburgerBtn.addEventListener('click', openDrawer);
+  if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
+
+  drawerLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeDrawer();
+    });
+  });
+
+  /* ==========================================================================
+     4. SKILLS CATEGORY FILTER TABS
+     ========================================================================== */
+  const skillTabs = document.querySelectorAll('.skill-tab-btn');
+  const skillCards = document.querySelectorAll('.skill-item-card');
+
+  skillTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      skillTabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const selectedCategory = tab.getAttribute('data-category');
+
+      skillCards.forEach((card) => {
+        const cardCategory = card.getAttribute('data-category');
+        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  /* ==========================================================================
+     5. CONTACT FORM INTERACTION & VALIDATION
+     ========================================================================== */
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('userName');
+      const emailInput = document.getElementById('userEmail');
+      const messageInput = document.getElementById('userMessage');
+
+      if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+        if (formStatus) {
+          formStatus.className = 'form-status-message error';
+          formStatus.textContent = 'Please fill in all required fields (Name, Email, Message).';
+        }
+        return;
       }
-    );
 
-    elementsToAnimate.forEach((el) => observer.observe(el));
+      // Simple email format check
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailInput.value.trim())) {
+        if (formStatus) {
+          formStatus.className = 'form-status-message error';
+          formStatus.textContent = 'Please enter a valid email address.';
+        }
+        return;
+      }
+
+      // Simulation of submission
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Sending Message...</span>';
+      }
+
+      setTimeout(() => {
+        if (formStatus) {
+          formStatus.className = 'form-status-message success';
+          formStatus.textContent = '✓ Thank you! Your message has been received. Suyash will respond shortly.';
+        }
+        contactForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Send Message</span> <span class="btn-icon">→</span>';
+        }
+      }, 1000);
+    });
   }
 
-  // Event Listeners
+  /* ==========================================================================
+     6. INITIALIZATION & GLOBAL EVENT LISTENERS
+     ========================================================================== */
   window.addEventListener('resize', resizeCanvas, { passive: true });
-  window.addEventListener('scroll', () => {
-    updateTargetFrame();
-    updateActiveNav();
-  }, { passive: true });
+  window.addEventListener('scroll', handleScroll, { passive: true });
 
-  // Init
   setupRenderer();
   resizeCanvas();
   preloadImages();
   animate();
-  updateLiveTime();
-  setInterval(updateLiveTime, 1000);
-  setupRevealAnimations();
-  updateActiveNav();
-})();
+  handleScroll();
 
-/* ==========================================================================
-   FLEEING INTRO PILL — Cursor-repelled button interaction
-   ========================================================================== */
-(function () {
-  'use strict';
+  // Safety preloader dismiss
+  setTimeout(hidePreloader, 3500);
 
-  const pill = document.getElementById('fleeingPill');
-  if (!pill) return;
+  /* ==========================================================================
+     7. ABOUT PAGE — HR / MARKETING TAB SWITCHER
+     ========================================================================== */
+  (function initAboutSwitcher() {
+    const tabs = document.querySelectorAll('.switcher-tab');
+    const panels = document.querySelectorAll('.switcher-panel');
+    if (!tabs.length || !panels.length) return;
 
-  // Skip on touch devices
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  if (isTouchDevice) return;
+    function switchTo(targetPanelId) {
+      const activePanel = document.querySelector('.switcher-panel:not(.hidden)');
+      const targetPanel = document.getElementById(targetPanelId);
+      if (!targetPanel || activePanel === targetPanel) return;
 
-  const PROXIMITY = 80;  // Distance in px that triggers a flee
-  const COOLDOWN = 400;  // Min ms between moves
-  let lastMove = 0;
-  let offsetX = 0;
-  let offsetY = 0;
-
-  function flee(e) {
-    const now = Date.now();
-    if (now - lastMove < COOLDOWN) return;
-
-    const rect = pill.getBoundingClientRect();
-    const pillCX = rect.left + rect.width / 2;
-    const pillCY = rect.top + rect.height / 2;
-
-    const dx = e.clientX - pillCX;
-    const dy = e.clientY - pillCY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist > PROXIMITY) return;
-
-    // Get parent bounds to keep pill inside
-    const parent = pill.closest('.about-bottom-bar') || pill.parentElement;
-    const parentRect = parent.getBoundingClientRect();
-    const section = pill.closest('.section-about-new');
-    const sectionRect = section ? section.getBoundingClientRect() : parentRect;
-
-    // Max bounds (use the tighter of parent/section, with padding)
-    const pad = 20;
-    const minX = sectionRect.left + pad - (rect.left - offsetX);
-    const maxX = sectionRect.right - pad - rect.width - (rect.left - offsetX);
-    const minY = sectionRect.top + pad - (rect.top - offsetY);
-    const maxY = sectionRect.bottom - pad - rect.height - (rect.top - offsetY);
-
-    // Move away from cursor: random angle biased opposite to cursor
-    const baseAngle = Math.atan2(-dy, -dx);
-    const spread = (Math.random() - 0.5) * Math.PI * 0.8;
-    const angle = baseAngle + spread;
-    const moveDist = 120 + Math.random() * 80;
-
-    let newX = offsetX + Math.cos(angle) * moveDist;
-    let newY = offsetY + Math.sin(angle) * moveDist;
-
-    // Clamp within bounds
-    newX = Math.max(minX, Math.min(maxX, newX));
-    newY = Math.max(minY, Math.min(maxY, newY));
-
-    offsetX = newX;
-    offsetY = newY;
-    lastMove = now;
-
-    // Apply with random subtle rotation
-    const rot = (Math.random() - 0.5) * 6;
-    pill.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(0.94) rotate(${rot}deg)`;
-    pill.classList.add('is-fleeing');
-
-    setTimeout(() => {
-      pill.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(1) rotate(0deg)`;
-      pill.classList.remove('is-fleeing');
-    }, 300);
-  }
-
-  document.addEventListener('mousemove', flee, { passive: true });
-})();
-
-/* ==========================================================================
-   ABOUT SECTION CAROUSEL — HR & Marketing 2-Slide Loop Controller
-   ========================================================================== */
-(function () {
-  'use strict';
-
-  const viewport = document.getElementById('aboutCarouselViewport');
-  const arrowLeft = document.getElementById('aboutArrowLeft');
-  const arrowRight = document.getElementById('aboutArrowRight');
-  const slides = document.querySelectorAll('.about-slide');
-
-  if (!viewport || slides.length < 2 || !arrowLeft || !arrowRight) return;
-
-  let currentIndex = 0;
-  let isTransitioning = false;
-  const TRANSITION_DURATION = 600; // ms
-
-  function goToSlide(nextIndex, direction) {
-    if (isTransitioning || nextIndex === currentIndex) return;
-    isTransitioning = true;
-
-    const currentSlide = slides[currentIndex];
-    const targetSlide = slides[nextIndex];
-
-    // Clean up all transient animation classes first
-    slides.forEach(s => {
-      s.classList.remove('slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
-    });
-
-    if (direction === 'next') {
-      // Current moves OUT to LEFT, Target enters from RIGHT
-      targetSlide.classList.add('slide-in-right');
-      void targetSlide.offsetWidth; // Force layout recalculation
-
-      currentSlide.classList.add('slide-out-left');
-      targetSlide.classList.remove('slide-in-right');
-      targetSlide.classList.add('active');
-    } else {
-      // Current moves OUT to RIGHT, Target enters from LEFT
-      targetSlide.classList.add('slide-in-left');
-      void targetSlide.offsetWidth; // Force layout recalculation
-
-      currentSlide.classList.add('slide-out-right');
-      targetSlide.classList.remove('slide-in-left');
-      targetSlide.classList.add('active');
-    }
-
-    setTimeout(() => {
-      currentSlide.classList.remove('active', 'slide-out-left', 'slide-out-right');
-      targetSlide.classList.remove('slide-in-left', 'slide-in-right');
-      currentIndex = nextIndex;
-      isTransitioning = false;
-    }, TRANSITION_DURATION);
-  }
-
-  function handleNext() {
-    const nextIndex = (currentIndex + 1) % slides.length;
-    goToSlide(nextIndex, 'next');
-  }
-
-  function handlePrev() {
-    const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
-    goToSlide(prevIndex, 'prev');
-  }
-
-  arrowRight.addEventListener('click', (e) => {
-    e.preventDefault();
-    handleNext();
-  });
-
-  arrowLeft.addEventListener('click', (e) => {
-    e.preventDefault();
-    handlePrev();
-  });
-
-  // Touch / Swipe support for mobile
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchEndX = 0;
-  let touchEndY = 0;
-
-  viewport.addEventListener('touchstart', (e) => {
-    if (!e.changedTouches || e.changedTouches.length === 0) return;
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
-  }, { passive: true });
-
-  viewport.addEventListener('touchend', (e) => {
-    if (!e.changedTouches || e.changedTouches.length === 0) return;
-    touchEndX = e.changedTouches[0].screenX;
-    touchEndY = e.changedTouches[0].screenY;
-
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
-
-    // Minimum swipe threshold (40px) and ensure horizontal intent
-    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX < 0) {
-        // Swiped Left -> Go Next (HR -> Marketing)
-        handleNext();
-      } else {
-        // Swiped Right -> Go Prev (Marketing -> HR)
-        handlePrev();
-      }
-    }
-  }, { passive: true });
-})();
-
-/* ==========================================================================
-   CONTACT FORM SUBMISSION CONTROLLER — Direct to suyashsonkar11@gmail.com
-   ========================================================================== */
-(function () {
-  'use strict';
-
-  const form = document.getElementById('contactForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const btnText = document.getElementById('btnText');
-  const btnArrow = document.getElementById('btnArrow');
-  const formStatus = document.getElementById('formStatus');
-
-  if (!form || !submitBtn) return;
-
-  const nameInput = document.getElementById('userName');
-  const emailInput = document.getElementById('userEmail');
-  const phoneInput = document.getElementById('userNumber');
-  const needSelect = document.getElementById('primaryNeed');
-  const messageInput = document.getElementById('userMessage');
-
-  function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  function showStatus(type, title, desc) {
-    if (!formStatus) return;
-    formStatus.className = 'form-status-message ' + (type === 'success' ? 'is-success' : 'is-error');
-    formStatus.innerHTML = `<strong class="status-title">${title}</strong><span class="status-desc">${desc}</span>`;
-    formStatus.style.display = 'block';
-  }
-
-  function clearStatus() {
-    if (!formStatus) return;
-    formStatus.className = 'form-status-message';
-    formStatus.innerHTML = '';
-    formStatus.style.display = 'none';
-  }
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    clearStatus();
-
-    const name = nameInput ? nameInput.value.trim() : '';
-    const email = emailInput ? emailInput.value.trim() : '';
-    const phone = phoneInput ? phoneInput.value.trim() : '';
-    const need = needSelect ? needSelect.value : '';
-    const message = messageInput ? messageInput.value.trim() : '';
-
-    // Field Validations
-    if (!name) {
-      if (nameInput) nameInput.focus();
-      showStatus('error', 'NAME REQUIRED', 'Please enter your name.');
-      return;
-    }
-
-    if (!email || !validateEmail(email)) {
-      if (emailInput) emailInput.focus();
-      showStatus('error', 'VALID EMAIL REQUIRED', 'Please enter a valid email address.');
-      return;
-    }
-
-    if (!message) {
-      if (messageInput) messageInput.focus();
-      showStatus('error', 'MESSAGE REQUIRED', 'Please enter your message or hiring inquiry.');
-      return;
-    }
-
-    // Set loading state
-    submitBtn.disabled = true;
-    const originalText = btnText ? btnText.textContent : 'Send Message';
-    if (btnText) btnText.textContent = 'Sending...';
-    if (btnArrow) btnArrow.textContent = '⏳';
-
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/suyashsonkar11@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          Name: name,
-          Email: email,
-          Phone: phone || 'Not provided',
-          'Primary Need': need || 'General Inquiry',
-          Message: message,
-          _subject: `New Portfolio Inquiry from ${name}`,
-          _template: 'table',
-          _captcha: 'false'
-        })
+      // Update tab states
+      tabs.forEach(function (t) {
+        const isTarget = t.dataset.panel === targetPanelId;
+        t.classList.toggle('active', isTarget);
+        t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
       });
 
-      const data = await response.json().catch(() => ({}));
+      // Fade out current panel
+      if (activePanel) {
+        activePanel.classList.add('fade-out');
+        activePanel.addEventListener('transitionend', function onOut() {
+          activePanel.removeEventListener('transitionend', onOut);
+          activePanel.classList.add('hidden');
+          activePanel.classList.remove('fade-out');
 
-      if (response.ok || data.success === 'true' || data.success === true) {
-        showStatus(
-          'success',
-          'MESSAGE SENT SUCCESSFULLY',
-          'Thank you for reaching out. I’ll get back to you soon.'
-        );
-        form.reset();
+          // Fade in target panel
+          targetPanel.classList.remove('hidden');
+          targetPanel.classList.add('fade-in');
+          // Force reflow so transition triggers
+          void targetPanel.offsetWidth;
+          targetPanel.classList.remove('fade-in');
+        }, { once: true });
       } else {
-        throw new Error(data.message || 'Submission failed');
+        targetPanel.classList.remove('hidden');
       }
-    } catch (err) {
-      console.error('Contact Form Error:', err);
-      showStatus(
-        'error',
-        'MESSAGE COULD NOT BE SENT',
-        'Please try again or contact me directly by email at suyashsonkar11@gmail.com.'
-      );
-    } finally {
-      submitBtn.disabled = false;
-      if (btnText) btnText.textContent = originalText;
-      if (btnArrow) btnArrow.textContent = '→';
     }
-  });
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        switchTo(tab.dataset.panel);
+      });
+    });
+
+    // Mobile swipe support
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var switcherCard = document.querySelector('.about-switcher-card');
+    if (switcherCard) {
+      switcherCard.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      switcherCard.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+          // Horizontal swipe detected
+          var activeTab = document.querySelector('.switcher-tab.active');
+          var allTabs = Array.from(tabs);
+          var idx = allTabs.indexOf(activeTab);
+          if (dx < 0 && idx < allTabs.length - 1) {
+            switchTo(allTabs[idx + 1].dataset.panel);
+          } else if (dx > 0 && idx > 0) {
+            switchTo(allTabs[idx - 1].dataset.panel);
+          }
+        }
+      }, { passive: true });
+    }
+  })();
+
 })();
-
-

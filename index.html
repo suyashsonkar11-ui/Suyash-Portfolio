@@ -2,503 +2,1095 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Suyash Sonkar - Human Resource & Marketing Professional Portfolio">
-  <title>Suyash Sonkar - Human Resource & Marketing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Suyash Sonkar - Human Resource & Marketing Professional Portfolio. MBA graduate specialized in Talent Acquisition, HR Analytics, and Marketing Strategy.">
+    <title>Suyash Sonkar — HR &amp; Marketing Portfolio</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- Preloader Screen -->
-  <div class="preloader" id="preloader">
-    <div class="loader-bar-bg">
-      <div class="loader-bar-fill" id="loaderBarFill"></div>
+    <!-- Minimal Elegant Preloader Screen -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="spinner"></div>
+            <div class="loader-bar-bg">
+                <div class="loader-bar-fill" id="loaderBarFill"></div>
+            </div>
+            <div class="loader-text" id="loaderText">0%</div>
+        </div>
     </div>
-    <div class="loader-text" id="loaderText">0%</div>
-  </div>
 
-  <!-- Fixed Background Title Layer (Behind Character Canvas) -->
-  <div class="hero-bg-layer" id="heroBgLayer" aria-hidden="true">
-    <div class="hero-huge-title">SUYASH SONKAR</div>
-  </div>
+    <!-- Ambient Golden Background Atmosphere -->
+    <div class="ambient-glow ambient-glow-1" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow-2" aria-hidden="true"></div>
 
-  <!-- Fixed Canvas Viewport (Grayscale 3D Character) -->
-  <div class="canvas-wrapper">
-    <img id="firstFrameFallback" src="website/ezgif-frame-001.jpg" alt="Suyash Sonkar" class="canvas-fallback-img">
-    <canvas id="scrollCanvas"></canvas>
-  </div>
+    <!-- Fixed Background Watermark Title Layer -->
+    <div class="hero-bg-layer" id="heroBgLayer" aria-hidden="true">
+        <div class="hero-huge-title">
+            <span class="hero-title-word hero-title-first">SUYASH</span>
+            <span class="hero-title-word hero-title-last">SONKAR</span>
+        </div>
+    </div>
 
-  <!-- Fixed Header Navigation Bar (Matching Reference Image) -->
-  <header class="navbar">
-    <div class="nav-brand">© Suyash Sonkar — HR &amp; Marketing</div>
-    <nav class="nav-links">
-      <a href="#home" class="nav-link active">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#resume" class="nav-link">Resume</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#contact" class="nav-link">Contact</a>
-    </nav>
-  </header>
+    <!-- Fixed Canvas Viewport (Natural Color Character with Transparent Cutout) -->
+    <div class="canvas-wrapper">
+        <img id="firstFrameFallback" src="Website/ezgif-frame-001.jpg" alt="Suyash Sonkar" class="canvas-fallback-img">
+        <canvas id="scrollCanvas"></canvas>
+    </div>
 
-  <!-- Main Scrollable Content Overlay -->
-  <div class="content-wrapper">
-
-    <!-- HERO SECTION (Matching Reference Image Exactly) -->
-    <section class="section section-hero" id="home">
-      <h1 class="sr-only">Suyash Sonkar — HR &amp; Marketing</h1>
-
-      <div class="hero-bottom-row">
-        <div class="hero-socials">
-          <a href="https://www.linkedin.com/in/suyash-sonkar-b42b49272/" target="_blank" rel="noopener noreferrer"
-            class="social-link">
-            <span class="social-icon-box">in</span>
-            <span>Linkedin</span>
-          </a>
-          <a href="./resume.pdf" download="Suyash-Sonkar-Resume.pdf" class="social-link resume-download-link">
-            <span class="social-icon-box social-icon-download">↓</span>
-            <span>Download Resume</span>
-          </a>
+    <!-- Fixed Header Navigation Bar -->
+    <header class="navbar" id="navbar">
+        <div class="nav-brand">
+            <a href="#home">© Suyash Sonkar</a>
         </div>
 
-        <div class="hero-tagline">
-          <span class="tagline-prefix">//</span>
-          <span class="tagline-text">HUMAN RESOURCE &amp; MARKETING</span>
-        </div>
-      </div>
-    </section>
+        <!-- Desktop Navigation Links -->
+        <nav class="nav-links">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#education" class="nav-link">Education</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#resume" class="nav-link">Resume</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
 
-    <section class="section section-about-new" id="about">
-      <div class="about-top-bar">
-        <h2 class="about-huge-title">About</h2>
-        <div class="about-meta-right">
-          <span class="meta-avail">AVAIL: 04.2026</span>
-          <a href="#contact" class="meta-contact-link">CONTACT</a>
-          <span class="meta-time" id="liveTime">1:48:07 AM, IST</span>
-        </div>
-      </div>
-
-      <div class="about-middle-content">
-        <button class="about-carousel-arrow about-arrow-left" id="aboutArrowLeft" aria-label="Previous slide"
-          type="button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
+        <!-- Mobile Hamburger Toggle Button -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation Menu" type="button">
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
         </button>
+    </header>
 
-        <div class="about-carousel-viewport" id="aboutCarouselViewport">
-          <div class="about-slide active" data-slide="0">
-            <h3 class="about-block-title">HUMAN RESOURCE</h3>
-            <p class="about-p">
-              I am an MBA (HR) professional with a strong academic background in Science and Education, with a keen
-              interest in Human Resource Management. I am interested in Recruitment &amp; Selection, Training &amp;
-              Development, Employee Relations, HR Analytics, and organizational development. I enjoy understanding
-              people, solving workplace challenges, and contributing to a positive and productive work environment. I
-              aim to build a career where I can combine people management, communication, analytical thinking, and
-              business understanding to create meaningful organizational impact.
-            </p>
-          </div>
-          <div class="about-slide" data-slide="1">
-            <h3 class="about-block-title">MARKETING</h3>
-            <p class="about-p">
-              I am an MBA (Marketing) professional with a strong interest in Marketing Strategy, Digital Marketing,
-              Consumer Behaviour, Market Analysis, and Brand Development. I enjoy understanding customer needs,
-              analyzing market trends, and creating effective marketing ideas that connect brands with their audiences.
-              I have working knowledge of Canva, AI tools, social media, and digital content creation, and I aim to
-              build a career where creativity, analytics, and business strategy come together to drive brand growth.
-            </p>
-          </div>
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <span class="drawer-brand">© Suyash Sonkar</span>
+            <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">&times;</button>
         </div>
-
-        <button class="about-carousel-arrow about-arrow-right" id="aboutArrowRight" aria-label="Next slide"
-          type="button">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-      </div>
-
-      <div class="about-bottom-bar">
-        <div class="intro-pill" id="fleeingPill">
-          <span class="pill-arrow">‹</span>
-          <span class="pill-label">INTRO</span>
-          <span class="pill-arrow">›</span>
+        <nav class="drawer-links">
+            <a href="#home" class="drawer-link active">Home</a>
+            <a href="#about" class="drawer-link">About</a>
+            <a href="#education" class="drawer-link">Education</a>
+            <a href="#experience" class="drawer-link">Experience</a>
+            <a href="#skills" class="drawer-link">Skills</a>
+            <a href="#projects" class="drawer-link">Projects</a>
+            <a href="#resume" class="drawer-link">Resume</a>
+            <a href="#contact" class="drawer-link">Contact</a>
+        </nav>
+        <div class="drawer-footer">
+            <a href="./resume.pdf" download="Suyash-Sonkar-Resume.pdf" class="btn-amber-small">
+                <span>Download Resume ↓</span>
+            </a>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <section class="section section-resume" id="resume">
-      <div class="resume-grid">
+    <!-- Main Scrollable Content Overlay -->
+    <main class="content-wrapper">
 
-        <!-- COLUMN 1: LEFT (Soft Skills, Languages, Featured Project, Extra-Curricular) -->
-        <div class="resume-col resume-col-left">
-          
-          <!-- Soft Skills -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>SOFT SKILLS</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <ul class="skills-list">
-              <li class="skill-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="skill-text">Communication</span>
-              </li>
-              <li class="skill-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="skill-text">Active Listening</span>
-              </li>
-              <li class="skill-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="skill-text">Problem Solving</span>
-              </li>
-              <li class="skill-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="skill-text">Multitasking</span>
-              </li>
-              <li class="skill-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="skill-text">Teamwork</span>
-              </li>
-            </ul>
-          </div>
+        <!-- ==========================================================================
+         SECTION 1: HERO SECTION
+         ========================================================================== -->
+        <section class="section section-hero" id="home">
+            <h1 class="sr-only">Suyash Sonkar — Human Resource &amp; Marketing Portfolio</h1>
 
-          <!-- Languages -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>LANGUAGES</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <ul class="skills-list">
-              <li class="skill-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="skill-text">Hindi</span>
-              </li>
-              <li class="skill-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="skill-text">English</span>
-              </li>
-            </ul>
-          </div>
+            <!-- Left Glass Content Panel (Guaranteed Readability) -->
+            <div class="hero-content-grid">
+                <div class="hero-glass-panel glass-card">
+                    <div class="hero-badge">
+                        <span class="pulse-dot"></span>
+                        <span class="badge-text">WELCOME TO MY PORTFOLIO</span>
+                    </div>
 
-          <!-- Project Card -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>PROJECT</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <div class="resume-project-card">
-              <div class="project-card-header">
-                <h4 class="project-card-title">HR Recruitment Analysis (Excel)</h4>
-              </div>
-              <ul class="project-points-list">
-                <li class="project-point">
-                  <span class="point-bullet" aria-hidden="true">•</span>
-                  <span class="point-text">Analyzed recruitment data using Excel</span>
-                </li>
-                <li class="project-point">
-                  <span class="point-bullet" aria-hidden="true">•</span>
-                  <span class="point-text">Identified hiring trends and candidate patterns</span>
-                </li>
-                <li class="project-point">
-                  <span class="point-bullet" aria-hidden="true">•</span>
-                  <span class="point-text">Improved understanding of HR decision-making</span>
-                </li>
-              </ul>
+                    <h2 class="hero-headline">
+                        Turning <span class="text-amber">People</span>, Processes &amp; Possibilities into <span
+                            class="text-amber">Progress</span>.
+                    </h2>
+
+                    <p class="hero-desc">
+                        I am a highly motivated MBA professional specializing in <strong>Human Resource
+                            Management</strong> and <strong>Marketing</strong>. Experienced in recruitment analysis,
+                        vocational training at SECL &amp; SECR, and combining analytics with people-centric strategy.
+                    </p>
+
+                    <!-- Hero Action Buttons -->
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn-amber">
+                            <span>View My Work</span>
+                            <span class="btn-icon">→</span>
+                        </a>
+                        <a href="./resume.pdf" download="Suyash-Sonkar-Resume.pdf" class="btn-glass">
+                            <span>Download Resume</span>
+                            <span class="btn-icon">↓</span>
+                        </a>
+                    </div>
+
+                    <!-- Hero Statistic Counters -->
+                    <div class="hero-stats-row">
+                        <div class="stat-pill">
+                            <span class="stat-num">7+</span>
+                            <span class="stat-lbl">CGPA Academic</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-num">5+</span>
+                            <span class="stat-lbl">Key Skill Domains</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-num">2+</span>
+                            <span class="stat-lbl">Major Projects</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-num">100%</span>
+                            <span class="stat-lbl">Growth Mindset</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Glass Focus Card -->
+                <div class="hero-focus-card glass-card">
+                    <div class="focus-card-header">
+                        <span class="focus-tag">SPECIALIZATION</span>
+                        <h3 class="focus-title">CURRENTLY FOCUSED ON</h3>
+                    </div>
+                    <ul class="focus-list">
+                        <li class="focus-item">
+                            <span class="focus-bullet">✦</span>
+                            <span class="focus-text">Human Resource Management</span>
+                        </li>
+                        <li class="focus-item">
+                            <span class="focus-bullet">✦</span>
+                            <span class="focus-text">Recruitment &amp; Selection</span>
+                        </li>
+                        <li class="focus-item">
+                            <span class="focus-bullet">✦</span>
+                            <span class="focus-text">Training &amp; Development</span>
+                        </li>
+                        <li class="focus-item">
+                            <span class="focus-bullet">✦</span>
+                            <span class="focus-text">HR Analytics &amp; Reporting</span>
+                        </li>
+                        <li class="focus-item">
+                            <span class="focus-bullet">✦</span>
+                            <span class="focus-text">Organizational Growth Strategy</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
 
-          <!-- Extra-Curricular Activities -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>EXTRA-CURRICULAR ACTIVITIES</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <ul class="extracurricular-list">
-              <li class="extracurricular-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="extracurricular-text">Represented school at district level in Kho-Kho and Athletics</span>
-              </li>
-              <li class="extracurricular-item">
-                <span class="skill-bullet" aria-hidden="true">—</span>
-                <span class="extracurricular-text">Interest in AI tools, reading, and continuous learning</span>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        <!-- COLUMN 2: CENTER (Education & Training / Vocational Timeline) -->
-        <div class="resume-col resume-col-center">
-          
-          <!-- Education Hierarchy -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>EDUCATION</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <div class="education-list">
-
-              <div class="education-card">
-                <div class="education-meta">
-                  <span class="education-year">2025 – 2027</span>
+            <!-- Bottom-Left Social Links (Exact Style of Reference) -->
+            <div class="hero-bottom-row">
+                <div class="hero-socials">
+                    <a href="https://www.linkedin.com/in/suyash-sonkar-b42b49272/" target="_blank"
+                        rel="noopener noreferrer" class="social-link" title="LinkedIn Profile">
+                        <span class="social-icon-box">in</span>
+                        <span>Linkedin</span>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link"
+                        title="Twitter / X">
+                        <span class="social-icon-box">y</span>
+                        <span>Twitter</span>
+                    </a>
                 </div>
-                <h4 class="education-degree">Master of Business Administration</h4>
-                <p class="education-univ">Guru Ghasidas A Central University, Bilaspur</p>
-              </div>
-
-              <div class="education-card">
-                <div class="education-meta">
-                  <span class="education-year">2023 – 2025</span>
-                </div>
-                <h4 class="education-degree">Master of Arts (Education)</h4>
-                <p class="education-univ">Chhatrapati Shahu Ji Maharaj University, Kanpur</p>
-              </div>
-
-              <div class="education-card">
-                <div class="education-meta">
-                  <span class="education-year">2020 – 2023</span>
-                </div>
-                <h4 class="education-degree">Bachelor of Science (BSc)</h4>
-                <p class="education-univ">Chhatrapati Shahu Ji Maharaj University, Kanpur</p>
-              </div>
-
             </div>
-          </div>
+        </section>
 
-          <!-- Training & Vocational Connected Timeline -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>TRAINING &amp; VOCATIONAL</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <div class="training-timeline">
-
-              <!-- Entry 01 -->
-              <div class="training-item">
-                <div class="training-marker">
-                  <span class="marker-number">01</span>
-                  <div class="timeline-line-connector" aria-hidden="true"></div>
+        <!-- ==========================================================================
+         SECTION 2: ABOUT SECTION
+         ========================================================================== -->
+        <section class="section section-about" id="about">
+            <div class="section-header-block">
+                <div class="section-tag-pill">
+                    <span class="amber-indicator"></span>
+                    <span>GET TO KNOW ME</span>
                 </div>
-                <div class="training-card">
-                  <div class="training-header">
-                    <h4 class="training-org">South East Central Railway (SECR)</h4>
-                    <span class="training-loc">Bilaspur, Chhattisgarh</span>
-                  </div>
-                  <div class="training-domain">Human Resources (HR)</div>
-                  <p class="training-desc">Completed HR-related training and vocational training.</p>
+                <h2 class="section-main-heading">ABOUT ME</h2>
+                <div class="section-heading-line"></div>
+            </div>
+
+            <div class="about-grid-layout">
+                <!-- Academic & Professional Journey Card (Strictly Foundation — No Mixed HR/Marketing) -->
+                <div class="about-main-card glass-card">
+                    <div class="about-badge-row">
+                        <span class="about-role-tag">MBA SCHOLAR</span>
+                        <span class="about-avail-tag">AVAILABLE FOR OPPORTUNITIES</span>
+                    </div>
+
+                    <h3 class="about-card-title">Academic Foundation &amp; Professional Vision</h3>
+
+                    <p class="about-card-desc">
+                        I am an ambitious and dedicated postgraduate scholar currently pursuing my MBA at <strong>Guru
+                            Ghasidas Central University, Bilaspur</strong>. My unique academic journey combines a solid
+                        foundation in Science (B.Sc.) and Education (B.Ed.), bringing together structured analytical
+                        discipline and strong pedagogical communication skills.
+                    </p>
+                    <p class="about-card-desc">
+                        My goal is to leverage data-backed insights, ethical personnel administration, and strategic
+                        thinking to build productive, modern workplace environments that drive sustained organizational
+                        growth.
+                    </p>
+
+                    <!-- Foundational Pillars (Academic & Core Capabilities) -->
+                    <div class="strengths-grid">
+                        <div class="strength-box">
+                            <div class="strength-icon">🎓</div>
+                            <h4 class="strength-name">Central University</h4>
+                            <p class="strength-desc">Prestigious postgraduate MBA education at Guru Ghasidas Central
+                                University.</p>
+                        </div>
+                        <div class="strength-box">
+                            <div class="strength-icon">🔬</div>
+                            <h4 class="strength-name">Science Discipline</h4>
+                            <p class="strength-desc">B.Sc. background fostering quantitative logic and objective
+                                analysis.</p>
+                        </div>
+                        <div class="strength-box">
+                            <div class="strength-icon">📚</div>
+                            <h4 class="strength-name">Pedagogy &amp; Education</h4>
+                            <p class="strength-desc">B.Ed. training cultivating structured communication and active
+                                listening.</p>
+                        </div>
+                        <div class="strength-box">
+                            <div class="strength-icon">💡</div>
+                            <h4 class="strength-name">Analytical Mindset</h4>
+                            <p class="strength-desc">Data-driven problem solving with Excel, SQL, and business metrics.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-              </div>
 
-              <!-- Entry 02 -->
-              <div class="training-item">
-                <div class="training-marker">
-                  <span class="marker-number">02</span>
+                <!-- HR / Marketing Interactive Switcher Card (Distinct Professional Dimensions) -->
+                <div class="about-switcher-card glass-card">
+
+                    <!-- Tab Buttons -->
+                    <div class="switcher-tabs" role="tablist">
+                        <button class="switcher-tab active" id="tab-hr" role="tab" aria-selected="true"
+                            aria-controls="panel-hr" data-panel="panel-hr">
+                            HUMAN RESOURCES
+                        </button>
+                        <button class="switcher-tab" id="tab-mkt" role="tab" aria-selected="false"
+                            aria-controls="panel-mkt" data-panel="panel-mkt">
+                            MARKETING
+                        </button>
+                    </div>
+
+                    <!-- HUMAN RESOURCES Panel (Primary Focus) -->
+                    <div class="switcher-panel" id="panel-hr" role="tabpanel" aria-labelledby="tab-hr">
+                        <div class="switcher-panel-header">
+                            <div class="panel-spec-tag primary-tag">PRIMARY SPECIALIZATION</div>
+                            <h3 class="switcher-panel-title">HUMAN RESOURCES</h3>
+                            <p class="switcher-panel-sub">People &bull; Culture &bull; Talent</p>
+                        </div>
+                        <p class="switcher-panel-desc">
+                            With vocational HR training at <strong>South Eastern Coalfields Limited (SECL)</strong> and
+                            <strong>South East Central Railway (SECR)</strong>, I have gained hands-on industrial
+                            exposure to recruitment patterns, personnel administration, employee welfare, and grievance
+                            redressal mechanisms — building a solid operational foundation in people management.
+                        </p>
+                        <div class="switcher-chips">
+                            <span class="s-chip">Recruitment &amp; Selection</span>
+                            <span class="s-chip">HR Analytics</span>
+                            <span class="s-chip">Employee Relations</span>
+                            <span class="s-chip">Training &amp; Development</span>
+                            <span class="s-chip">Employee Welfare</span>
+                            <span class="s-chip">Personnel Administration</span>
+                        </div>
+                        <div class="about-meta-list">
+                            <div class="meta-entry">
+                                <span class="meta-label">Focus Area</span>
+                                <span class="meta-value">Human Resource Management (Primary)</span>
+                            </div>
+                            <div class="meta-entry">
+                                <span class="meta-label">Experience</span>
+                                <span class="meta-value">SECL Bilaspur &amp; SECR Bilaspur</span>
+                            </div>
+                            <div class="meta-entry">
+                                <span class="meta-label">Availability</span>
+                                <span class="meta-value text-amber">Immediate / 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MARKETING Panel (Secondary / Parallel Specialization) -->
+                    <div class="switcher-panel hidden" id="panel-mkt" role="tabpanel" aria-labelledby="tab-mkt">
+                        <div class="switcher-panel-header">
+                            <div class="panel-spec-tag secondary-tag">PARALLEL SPECIALIZATION</div>
+                            <h3 class="switcher-panel-title">MARKETING</h3>
+                            <p class="switcher-panel-sub">Strategy &bull; Customers &bull; Growth</p>
+                        </div>
+                        <p class="switcher-panel-desc">
+                            Through my MBA dual specialization, I have developed a strong foundation in market dynamics,
+                            consumer behaviour, and digital outreach strategies — enabling me to analyze target
+                            audiences, evaluate market trends, and formulate data-grounded growth approaches.
+                        </p>
+                        <div class="switcher-chips">
+                            <span class="s-chip">Marketing Strategy</span>
+                            <span class="s-chip">Market Analysis</span>
+                            <span class="s-chip">Consumer Behaviour</span>
+                            <span class="s-chip">Digital Marketing</span>
+                            <span class="s-chip">Branding</span>
+                            <span class="s-chip">Customer Understanding</span>
+                        </div>
+                        <div class="about-meta-list">
+                            <div class="meta-entry">
+                                <span class="meta-label">Focus Area</span>
+                                <span class="meta-value">Marketing &amp; Strategy (Parallel)</span>
+                            </div>
+                            <div class="meta-entry">
+                                <span class="meta-label">Toolkit</span>
+                                <span class="meta-value">Canva, AI Tools, Market Research</span>
+                            </div>
+                            <div class="meta-entry">
+                                <span class="meta-label">Availability</span>
+                                <span class="meta-value text-amber">Immediate / 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="training-card">
-                  <div class="training-header">
-                    <h4 class="training-org">South Eastern Coalfields Limited (SECL)</h4>
-                    <span class="training-loc">Bilaspur, Chhattisgarh</span>
-                  </div>
-                  <div class="training-domain">Human Resources (HR)</div>
-                  <p class="training-desc">Completed HR-related training and vocational training.</p>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+         SECTION 3: EDUCATION SECTION
+         ========================================================================== -->
+        <section class="section section-education" id="education">
+            <div class="section-header-block">
+                <div class="section-tag-pill">
+                    <span class="amber-indicator"></span>
+                    <span>ACADEMIC FOUNDATION</span>
                 </div>
-              </div>
-
+                <h2 class="section-main-heading">MY EDUCATION</h2>
+                <div class="section-heading-line"></div>
             </div>
-          </div>
 
-        </div>
+            <div class="timeline-container">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-card glass-card">
+                    <div class="timeline-node">
+                        <span class="node-dot"></span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge-row">
+                            <span class="timeline-year text-amber">2025 – 2027</span>
+                            <span class="timeline-status">Currently Pursuing</span>
+                        </div>
+                        <h3 class="timeline-degree">Master of Business Administration (MBA)</h3>
+                        <h4 class="timeline-institute">Guru Ghasidas Central University, Bilaspur, Chhattisgarh</h4>
+                        <p class="timeline-desc">
+                            Dual Specialization in <strong>Human Resource Management</strong> and
+                            <strong>Marketing</strong>. Focus on Organizational Behavior, Talent Management, Consumer
+                            Insights, Performance Analytics, and Strategic Leadership.
+                        </p>
+                    </div>
+                </div>
 
-        <!-- COLUMN 3: RIGHT (Core Skills & Technical Skills) -->
-        <div class="resume-col resume-col-right">
-          
-          <!-- Core Skills -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>CORE SKILLS</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <div class="skills-card-group">
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Human Resource Management</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Recruitment &amp; Selection</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Training &amp; Development</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">HR Analytics (Basic)</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Marketing Strategy</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Market Analysis</span>
-              </div>
+                <!-- Timeline Item 2 -->
+                <div class="timeline-card glass-card">
+                    <div class="timeline-node">
+                        <span class="node-dot"></span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge-row">
+                            <span class="timeline-year text-amber">2023 – 2025</span>
+                            <span class="timeline-status">Completed</span>
+                        </div>
+                        <h3 class="timeline-degree">Master of Arts (Education)</h3>
+                        <h4 class="timeline-institute">Chhatrapati Shahu Ji Maharaj University, Kanpur, Uttar Pradesh
+                        </h4>
+                        <p class="timeline-desc">
+                            Specialized in Educational Psychology, Curriculum Development, Pedagogy, and Training
+                            Methodologies — laying a robust groundwork for Corporate Training &amp; Employee
+                            Development.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-card glass-card">
+                    <div class="timeline-node">
+                        <span class="node-dot"></span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge-row">
+                            <span class="timeline-year text-amber">2020 – 2023</span>
+                            <span class="timeline-status">Graduated</span>
+                        </div>
+                        <h3 class="timeline-degree">Bachelor of Science (B.Sc)</h3>
+                        <h4 class="timeline-institute">Chhatrapati Shahu Ji Maharaj University, Kanpur, Uttar Pradesh
+                        </h4>
+                        <p class="timeline-desc">
+                            Rigorous analytical, mathematical, and scientific training strengthening quantitative
+                            problem-solving, structured logic, and evidence-driven analysis.
+                        </p>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
 
-          <!-- Technical Skills -->
-          <div class="resume-block">
-            <h3 class="block-title">
-              <span>TECHNICAL SKILLS</span>
-              <span class="heading-line" aria-hidden="true"></span>
-            </h3>
-            <div class="skills-card-group">
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Microsoft Excel</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">SQL (Basic Queries, Data Filtering)</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Data Structure Using C/C++/Python/Java</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Digital Marketing (Social Media)</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">AI Tools (ChatGPT, Gamma AI)</span>
-              </div>
-              <div class="skill-pill-item">
-                <span class="skill-pill-text">Canva (Design &amp; Content Creation)</span>
-              </div>
+        <!-- ==========================================================================
+         SECTION 4: EXPERIENCE / VOCATIONAL TRAINING SECTION
+         ========================================================================== -->
+        <section class="section section-experience" id="experience">
+            <div class="section-header-block">
+                <div class="section-tag-pill">
+                    <span class="amber-indicator"></span>
+                    <span>HANDS-ON WORKFORCE TRAINING</span>
+                </div>
+                <h2 class="section-main-heading">EXPERIENCE</h2>
+                <div class="section-heading-line"></div>
             </div>
-          </div>
 
-        </div>
+            <div class="experience-grid">
+                <!-- Experience 1: SECL -->
+                <div class="exp-card glass-card">
+                    <div class="exp-header-row">
+                        <div>
+                            <span class="exp-role-tag text-amber">INTERNSHIP</span>
+                            <h3 class="exp-company">South Eastern Coalfields Limited (SECL)</h3>
+                            <span class="exp-loc">Personnel &amp; Administration (P&amp;A)</span>
+                        </div>
+                        <span class="exp-number">01</span>
+                    </div>
 
-      </div>
-    </section>
+                    <p class="exp-summary">
+                        Gained practical exposure to different functions under Personnel &amp; Administration (P&amp;A),
+                        including Executive, HRD, IT and Welfare.
+                    </p>
 
-    <!-- SECTION 4: SPEAKER PORTFOLIO (Matching Reference Image Layout) -->
-    <section class="section section-speaker-portfolio" id="projects">
-      <div class="speaker-title-wrapper">
-        <h2 class="speaker-huge-title">PORTFOLIO</h2>
-      </div>
+                    <div class="exp-skills-tags">
+                        <span class="tag-chip">Executive</span>
+                        <span class="tag-chip">HRD</span>
+                        <span class="tag-chip">IT</span>
+                        <span class="tag-chip">Welfare</span>
+                    </div>
+                </div>
 
-      <div class="portfolio-grid">
-        <div class="portfolio-item">
-          <div class="portfolio-content">
-            <span class="portfolio-tag">01 HR STRATEGY</span>
-            <h3 class="portfolio-title">Employer Branding Campaign</h3>
-            <p class="portfolio-desc">Increased qualified applicant flow by 45% through targeted digital recruitment
-              funnels.</p>
-          </div>
-        </div>
+                <!-- Experience 2: SECR -->
+                <div class="exp-card glass-card">
+                    <div class="exp-header-row">
+                        <div>
+                            <span class="exp-role-tag text-amber">INTERNSHIP</span>
+                            <h3 class="exp-company">South East Central Railway (SECR)</h3>
+                            <span class="exp-loc">Personnel Administration • Welfare Department</span>
+                        </div>
+                        <span class="exp-number">02</span>
+                    </div>
 
-        <div class="portfolio-item">
-          <div class="portfolio-content">
-            <span class="portfolio-tag">02 MARKETING</span>
-            <h3 class="portfolio-title">Omnichannel Growth Funnel</h3>
-            <p class="portfolio-desc">Scaled brand awareness and lead generation via performance marketing &amp; content
-              strategy.</p>
-          </div>
-        </div>
+                    <p class="exp-summary">
+                        Gained practical exposure to employee welfare activities and personnel administration through an
+                        internship in the Welfare Department.
+                    </p>
 
-        <div class="portfolio-item">
-          <div class="portfolio-content">
-            <span class="portfolio-tag">03 PEOPLE &amp; CULTURE</span>
-            <h3 class="portfolio-title">Culture Transformation</h3>
-            <p class="portfolio-desc">Implemented employee retention &amp; engagement framework boosting team morale by
-              60%.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+                    <div class="exp-skills-tags">
+                        <span class="tag-chip">Personnel Administration</span>
+                        <span class="tag-chip">Welfare Department</span>
+                        <span class="tag-chip">Public Sector HR</span>
+                    </div>
+                </div>
 
-    <section class="section section-contact" id="contact">
-      <div class="contact-header-container">
-        <div class="contact-title-group">
-          <h2 class="contact-main-title">
-            <span class="title-line-1">READY TO GROW</span>
-            <span class="title-line-2">YOUR TEAM <span class="title-accent">&amp; BRAND?</span></span>
-          </h2>
-        </div>
+                <!-- Experience 3: Chintan Prakashan -->
+                <div class="exp-card glass-card">
+                    <div class="exp-header-row">
+                        <div>
+                            <span class="exp-role-tag text-amber">WORK EXPERIENCE</span>
+                            <h3 class="exp-company">Chintan Prakashan</h3>
+                            <span class="exp-loc">Book Publication</span>
+                        </div>
+                        <span class="exp-number">03</span>
+                    </div>
 
-        <div class="lets-talk-badge">
-          <span class="badge-tag">LET'S TALK</span>
-          <span class="badge-sub">Available for HR Strategy &amp; Marketing Consultations</span>
-        </div>
-      </div>
+                    <p class="exp-summary">
+                        Gained practical experience in book publication-related work at Chintan Prakashan.
+                    </p>
 
-      <form class="contact-form" id="contactForm" novalidate>
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label" for="userName">YOUR NAME*</label>
-            <input type="text" id="userName" name="name" class="form-input" placeholder="John Raddison" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="userNumber">YOUR NUMBER</label>
-            <input type="tel" id="userNumber" name="phone" class="form-input" placeholder="+1 (514) 23 4567">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="userEmail">YOUR EMAIL*</label>
-            <input type="email" id="userEmail" name="email" class="form-input" placeholder="johnraddison@gmail.com"
-              required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="primaryNeed">PRIMARY NEED?</label>
-            <div class="select-wrapper">
-              <select id="primaryNeed" name="primary_need" class="form-select">
-                <option value="Human Resource Strategy & Hiring">Human Resource Strategy &amp; Hiring</option>
-                <option value="Performance Marketing & Branding">Performance Marketing &amp; Branding</option>
-                <option value="Both HR & Marketing Growth">Both HR &amp; Marketing Growth</option>
-                <option value="Hiring / Career Opportunity">Hiring / Career Opportunity</option>
-              </select>
+                    <div class="exp-skills-tags">
+                        <span class="tag-chip">Book Publication</span>
+                        <span class="tag-chip">Editorial Work</span>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
 
-          <div class="form-group form-group-full">
-            <div class="form-section-title">MESSAGE / HIRING INQUIRY</div>
-            <label class="form-label" for="userMessage">YOUR MESSAGE*</label>
-            <textarea id="userMessage" name="message" class="form-input form-textarea" rows="4"
-              placeholder="Interested in hiring me? Tell me about the role, opportunity, or project..."
-              required></textarea>
-          </div>
-        </div>
+        <!-- ==========================================================================
+         SECTION 5: SKILLS SECTION
+         ========================================================================== -->
+        <section class="section section-skills" id="skills">
+            <div class="section-header-block">
+                <div class="section-tag-pill">
+                    <span class="amber-indicator"></span>
+                    <span>COMPETENCY MATRIX</span>
+                </div>
+                <h2 class="section-main-heading">MY SKILLS</h2>
+                <div class="section-heading-line"></div>
+            </div>
 
-        <div class="form-submit-row">
-          <button type="submit" class="btn-primary btn-submit" id="submitBtn">
-            <span id="btnText">Send Message</span>
-            <span class="btn-arrow-circle" id="btnArrow">→</span>
-          </button>
-        </div>
+            <!-- Skills Tab Filter -->
+            <div class="skills-filter-tabs">
+                <button class="skill-tab-btn active" data-category="all">All Skills</button>
+                <button class="skill-tab-btn" data-category="soft">Soft Skills</button>
+                <button class="skill-tab-btn" data-category="core">HR &amp; Marketing</button>
+                <button class="skill-tab-btn" data-category="tools">Technical &amp; Tools</button>
+                <button class="skill-tab-btn" data-category="languages">Languages</button>
+            </div>
 
-        <div class="form-status-message" id="formStatus" aria-live="polite"></div>
-      </form>
-    </section>
+            <div class="skills-card-grid" id="skillsGrid">
+                <!-- Soft Skills -->
+                <div class="skill-item-card glass-card" data-category="soft">
+                    <div class="skill-card-icon">💬</div>
+                    <h3 class="skill-card-title">Communication</h3>
+                    <p class="skill-card-desc">Clear oral and written articulation for stakeholder management and
+                        presentations.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-left">© 2026 Suyash Sonkar — HR &amp; Marketing</div>
-        <div class="footer-right">
-          <a href="#home" class="footer-back-top">Back to Top ↑</a>
-        </div>
-      </div>
-    </footer>
+                <div class="skill-item-card glass-card" data-category="soft">
+                    <div class="skill-card-icon">👂</div>
+                    <h3 class="skill-card-title">Active Listening</h3>
+                    <p class="skill-card-desc">Empathetic engagement essential for grievance handling and employee
+                        interviews.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
 
-  </div>
+                <div class="skill-item-card glass-card" data-category="soft">
+                    <div class="skill-card-icon">🧩</div>
+                    <h3 class="skill-card-title">Problem Solving</h3>
+                    <p class="skill-card-desc">Structured root-cause deduction for workplace friction and workflow
+                        bottlenecks.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
 
-  <script src="script.js"></script>
+                <div class="skill-item-card glass-card" data-category="soft">
+                    <div class="skill-card-icon">⚡</div>
+                    <h3 class="skill-card-title">Multitasking</h3>
+                    <p class="skill-card-desc">Balancing concurrent projects, deadlines, and operational coordination
+                        smoothly.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="soft">
+                    <div class="skill-card-icon">👥</div>
+                    <h3 class="skill-card-title">Teamwork &amp; Leadership</h3>
+                    <p class="skill-card-desc">Cross-functional collaboration with diverse team members and peer
+                        mentorship.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <!-- HR & Marketing -->
+                <div class="skill-item-card glass-card" data-category="core">
+                    <div class="skill-card-icon">👔</div>
+                    <h3 class="skill-card-title">Human Resource Management</h3>
+                    <p class="skill-card-desc">Comprehensive understanding of HR lifecycle, policies, compliance, and
+                        retention.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="core">
+                    <div class="skill-card-icon">🎯</div>
+                    <h3 class="skill-card-title">Recruitment &amp; Selection</h3>
+                    <p class="skill-card-desc">Candidate sourcing, resume screening, talent pipeline building, and
+                        interview rounds.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="core">
+                    <div class="skill-card-icon">📚</div>
+                    <h3 class="skill-card-title">Training &amp; Development</h3>
+                    <p class="skill-card-desc">Skill assessment, onboarding curriculum design, and employee upskilling
+                        tracks.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="core">
+                    <div class="skill-card-icon">📈</div>
+                    <h3 class="skill-card-title">Marketing Strategy</h3>
+                    <p class="skill-card-desc">Market positioning, consumer behavior, brand differentiation, and
+                        omnichannel funnels.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="core">
+                    <div class="skill-card-icon">🔍</div>
+                    <h3 class="skill-card-title">Market Analysis</h3>
+                    <p class="skill-card-desc">Competitor benchmarking, customer requirement research, and trend
+                        forecasting.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <!-- Technical & Tools -->
+                <div class="skill-item-card glass-card" data-category="tools">
+                    <div class="skill-card-icon">📊</div>
+                    <h3 class="skill-card-title">Microsoft Excel</h3>
+                    <p class="skill-card-desc">Data analysis, VLOOKUP, Pivot Tables, conditional formatting, and HR
+                        analytics dashboards.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="tools">
+                    <div class="skill-card-icon">💾</div>
+                    <h3 class="skill-card-title">SQL (Database Basics)</h3>
+                    <p class="skill-card-desc">Querying relational databases, filtering employee records, and data
+                        aggregation.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="tools">
+                    <div class="skill-card-icon">🎨</div>
+                    <h3 class="skill-card-title">Canva &amp; Visual Design</h3>
+                    <p class="skill-card-desc">Employer branding creatives, infographics, recruitment posters, and
+                        social presentations.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="tools">
+                    <div class="skill-card-icon">🤖</div>
+                    <h3 class="skill-card-title">Generative AI Tools</h3>
+                    <p class="skill-card-desc">Leveraging modern AI platforms for workflow automation, research
+                        synthesis, and drafting.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="tools">
+                    <div class="skill-card-icon">📱</div>
+                    <h3 class="skill-card-title">Digital Marketing</h3>
+                    <p class="skill-card-desc">Social media campaigns, content marketing, lead generation, and audience
+                        analytics.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="tools">
+                    <div class="skill-card-icon">📋</div>
+                    <h3 class="skill-card-title">Project Management</h3>
+                    <p class="skill-card-desc">Timeline coordination, resource tracking, milestones, and deliverable
+                        execution.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <!-- Languages -->
+                <div class="skill-item-card glass-card" data-category="languages">
+                    <div class="skill-card-icon">🇮🇳</div>
+                    <h3 class="skill-card-title">Hindi</h3>
+                    <p class="skill-card-desc">Native proficiency — Fluent spoken, professional written, and executive
+                        communication.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+
+                <div class="skill-item-card glass-card" data-category="languages">
+                    <div class="skill-card-icon">🌐</div>
+                    <h3 class="skill-card-title">English</h3>
+                    <p class="skill-card-desc">Professional working proficiency — Business communication, technical
+                        reporting, and presentations.</p>
+                    <div class="skill-glow-bar"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+         SECTION 6: PROJECTS SECTION
+         ========================================================================== -->
+        <section class="section section-projects" id="projects">
+            <div class="section-header-block">
+                <div class="section-tag-pill">
+                    <span class="amber-indicator"></span>
+                    <span>PROVEN DELIVERABLES</span>
+                </div>
+                <h2 class="section-main-heading">MY PROJECTS</h2>
+                <div class="section-heading-line"></div>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: Hostel Dazee Website -->
+                <div class="project-glass-card glass-card">
+                    <div class="project-card-top">
+                        <span class="project-tag text-amber">01 WEB DESIGN</span>
+                        <span class="project-year">2025</span>
+                    </div>
+
+                    <h3 class="project-title">Hostel Dazee Website</h3>
+                    <p class="project-desc">
+                        A hostel/PG website designed to show hostel information, rooms and facilities and make it easy
+                        for students to explore the property.
+                    </p>
+                </div>
+
+                <!-- Project 2: Personal Portfolio Website -->
+                <div class="project-glass-card glass-card">
+                    <div class="project-card-top">
+                        <span class="project-tag text-amber">02 PORTFOLIO</span>
+                        <span class="project-year">2025</span>
+                    </div>
+
+                    <h3 class="project-title">Personal Portfolio Website</h3>
+                    <p class="project-desc">
+                        My personal portfolio website created to showcase my profile, skills, education, internships,
+                        projects and resume.
+                    </p>
+                </div>
+
+                <!-- Project 3: Marketing Strategy -->
+                <div class="project-glass-card glass-card">
+                    <div class="project-card-top">
+                        <span class="project-tag text-amber">03 MARKETING STRATEGY</span>
+                        <span class="project-year">2024</span>
+                    </div>
+
+                    <h3 class="project-title">Marketing Strategy</h3>
+                    <p class="project-desc">
+                        A marketing strategy project focused on understanding customers, competitors, promotion methods
+                        and ways to improve business growth.
+                    </p>
+                </div>
+
+                <!-- Project 4: HR Analytics -->
+                <div class="project-glass-card glass-card">
+                    <div class="project-card-top">
+                        <span class="project-tag text-amber">04 HR ANALYTICS</span>
+                        <span class="project-year">2025</span>
+                    </div>
+
+                    <h3 class="project-title">HR Analytics</h3>
+                    <p class="project-desc">
+                        An HR analytics project focused on using employee data to understand HR trends and support
+                        better decision-making.
+                    </p>
+
+                    <div class="project-tech-stack">
+                        <span class="tech-tag">MS Excel</span>
+                        <span class="tech-tag">Pivot Tables</span>
+                        <span class="tech-tag">Talent Analytics</span>
+                        <span class="tech-tag">Data Modeling</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+         SECTION 7: RESUME SECTION
+         ========================================================================== -->
+        <section class="section section-resume" id="resume">
+            <div class="section-header-block">
+                <div class="section-tag-pill">
+                    <span class="amber-indicator"></span>
+                    <span>CURRICULUM VITAE</span>
+                </div>
+                <div class="resume-title-action-row">
+                    <h2 class="section-main-heading">MY RESUME</h2>
+                    <div class="resume-cta-group">
+                        <a href="./resume.pdf" download="Suyash-Sonkar-Resume.pdf" class="btn-amber">
+                            <span>Download Resume (PDF)</span>
+                            <span class="btn-icon">↓</span>
+                        </a>
+                        <a href="./resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-glass">
+                            <span>View Online</span>
+                            <span class="btn-icon">↗</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="section-heading-line"></div>
+            </div>
+
+            <!-- Organized Resume Glass Grid -->
+            <div class="resume-grid">
+                <!-- Col 1: Skills & Languages -->
+                <div class="resume-col">
+                    <div class="resume-block glass-card">
+                        <h3 class="block-title">
+                            <span class="title-text">SOFT SKILLS</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <ul class="resume-list">
+                            <li><span class="dash text-amber">—</span> Communication &amp; Articulation</li>
+                            <li><span class="dash text-amber">—</span> Active Listening &amp; Empathy</li>
+                            <li><span class="dash text-amber">—</span> Problem Solving &amp; Root Cause Analysis</li>
+                            <li><span class="dash text-amber">—</span> Multitasking &amp; Prioritization</li>
+                            <li><span class="dash text-amber">—</span> Teamwork &amp; Cross-functional Sync</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-block glass-card">
+                        <h3 class="block-title">
+                            <span class="title-text">LANGUAGES</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <ul class="resume-list">
+                            <li><span class="dash text-amber">—</span> Hindi (Native / Full Proficiency)</li>
+                            <li><span class="dash text-amber">—</span> English (Professional Working Proficiency)</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-block glass-card">
+                        <h3 class="block-title">
+                            <span class="title-text">EXTRA-CURRICULAR ACTIVITIES</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <ul class="resume-list">
+                            <li><span class="dash text-amber">—</span> Represented school at district level in Kho-Kho
+                                &amp; Athletics.</li>
+                            <li><span class="dash text-amber">—</span> Keen enthusiast of Generative AI tools, modern
+                                tech, and continuous learning.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Col 2: Education & Experience -->
+                <div class="resume-col">
+                    <div class="resume-block glass-card">
+                        <h3 class="block-title">
+                            <span class="title-text">EDUCATION TIMELINE</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <div class="resume-sub-entries">
+                            <div class="resume-entry">
+                                <span class="entry-year text-amber">2025 – 2027</span>
+                                <h4 class="entry-title">Master of Business Administration (MBA)</h4>
+                                <p class="entry-sub">Guru Ghasidas Central University, Bilaspur • HR &amp; Marketing</p>
+                            </div>
+                            <div class="resume-entry">
+                                <span class="entry-year text-amber">2023 – 2025</span>
+                                <h4 class="entry-title">Master of Arts (Education)</h4>
+                                <p class="entry-sub">CSJM University, Kanpur • Educational Psychology &amp; Training</p>
+                            </div>
+                            <div class="resume-entry">
+                                <span class="entry-year text-amber">2020 – 2023</span>
+                                <h4 class="entry-title">Bachelor of Science (B.Sc)</h4>
+                                <p class="entry-sub">CSJM University, Kanpur • Mathematical &amp; Scientific Analysis
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-block glass-card">
+                        <h3 class="block-title">
+                            <span class="title-text">VOCATIONAL TRAINING</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <div class="resume-sub-entries">
+                            <div class="resume-entry">
+                                <span class="entry-year text-amber">01 SECL BILASPUR</span>
+                                <h4 class="entry-title">South Eastern Coalfields Limited (SECL)</h4>
+                                <p class="entry-sub">HR Vocational Training • Study on Employee Grievance Redressal</p>
+                            </div>
+                            <div class="resume-entry">
+                                <span class="entry-year text-amber">02 SECR BILASPUR</span>
+                                <h4 class="entry-title">South East Central Railway (SECR)</h4>
+                                <p class="entry-sub">HR &amp; Personnel Vocational Training • Administrative Procedures
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col 3: Core & Technical Competencies -->
+                <div class="resume-col">
+                    <div class="resume-block glass-card">
+                        <h3 class="block-title">
+                            <span class="title-text">CORE HR &amp; MARKETING</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <div class="pill-group">
+                            <span class="pill-chip">Human Resource Management</span>
+                            <span class="pill-chip">Recruitment &amp; Selection</span>
+                            <span class="pill-chip">Training &amp; Development</span>
+                            <span class="pill-chip">HR Analytics (Excel/SQL)</span>
+                            <span class="pill-chip">Marketing Strategy</span>
+                            <span class="pill-chip">Consumer Behavior</span>
+                            <span class="pill-chip">Market Analysis</span>
+                            <span class="pill-chip">Organizational Growth</span>
+                        </div>
+                    </div>
+
+                    <div class="resume-block glass-card">
+                        <h3 class="block-title">
+                            <span class="title-text">TECHNICAL &amp; TOOLS</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <div class="pill-group">
+                            <span class="pill-chip">Microsoft Excel</span>
+                            <span class="pill-chip">SQL Fundamentals</span>
+                            <span class="pill-chip">Canva Graphics</span>
+                            <span class="pill-chip">Generative AI Tools</span>
+                            <span class="pill-chip">Digital Marketing</span>
+                            <span class="pill-chip">Project Management</span>
+                            <span class="pill-chip">Pivot Dashboards</span>
+                        </div>
+                    </div>
+
+                    <div class="resume-block glass-card contact-snippet-block">
+                        <h3 class="block-title">
+                            <span class="title-text">DIRECT CONTACT</span>
+                            <span class="amber-bullet">✦</span>
+                        </h3>
+                        <p class="contact-snippet-line"><strong>Phone:</strong> +91 8400015585</p>
+                        <p class="contact-snippet-line"><strong>Email:</strong> suyashsonkar11@gmail.com</p>
+                        <p class="contact-snippet-line"><strong>Location:</strong> Kanpur Nagar, UP</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+         SECTION 8: CONTACT SECTION
+         ========================================================================== -->
+        <section class="section section-contact" id="contact">
+            <div class="section-header-block">
+                <div class="section-tag-pill">
+                    <span class="amber-indicator"></span>
+                    <span>COMMENCE CONVERSATION</span>
+                </div>
+                <h2 class="section-main-heading">GET IN TOUCH</h2>
+                <div class="section-heading-line"></div>
+            </div>
+
+            <div class="contact-layout-grid">
+                <!-- Contact Info Cards Column -->
+                <div class="contact-info-col">
+                    <div class="contact-card glass-card">
+                        <div class="contact-card-icon">✉️</div>
+                        <div class="contact-card-text">
+                            <span class="contact-label">EMAIL ADDRESS</span>
+                            <a href="mailto:suyashsonkar11@gmail.com" class="contact-value">suyashsonkar11@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card glass-card">
+                        <div class="contact-card-icon">📞</div>
+                        <div class="contact-card-text">
+                            <span class="contact-label">PHONE / WHATSAPP</span>
+                            <a href="tel:+918400015585" class="contact-value">+91 8400015585</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card glass-card">
+                        <div class="contact-card-icon">📍</div>
+                        <div class="contact-card-text">
+                            <span class="contact-label">LOCATION</span>
+                            <span class="contact-value">Kanpur Nagar, Uttar Pradesh, India</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-card glass-card">
+                        <div class="contact-card-icon">🔗</div>
+                        <div class="contact-card-text">
+                            <span class="contact-label">PROFESSIONAL PROFILES</span>
+                            <div class="contact-social-links">
+                                <a href="https://www.linkedin.com/in/suyash-sonkar-b42b49272/" target="_blank"
+                                    rel="noopener noreferrer" class="contact-social-pill">
+                                    <span>LinkedIn ↗</span>
+                                </a>
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+                                    class="contact-social-pill">
+                                    <span>Twitter / X ↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Column -->
+                <div class="contact-form-col">
+                    <form class="contact-form glass-card" id="contactForm" novalidate>
+                        <h3 class="form-title">Send a Direct Message</h3>
+                        <p class="form-sub">Whether you have a full-time role, internship, or consulting inquiry — I'd
+                            love to connect.</p>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="userName">YOUR NAME *</label>
+                                <input type="text" id="userName" name="name" class="form-input"
+                                    placeholder="e.g. Rahul Sharma" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="userEmail">YOUR EMAIL *</label>
+                                <input type="email" id="userEmail" name="email" class="form-input"
+                                    placeholder="e.g. rahul@company.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="userPhone">PHONE NUMBER</label>
+                                <input type="tel" id="userPhone" name="phone" class="form-input"
+                                    placeholder="e.g. +91 9876543210">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="primaryNeed">INQUIRY TYPE</label>
+                                <div class="select-wrapper">
+                                    <select id="primaryNeed" name="primary_need" class="form-select">
+                                        <option value="Hiring / Full-time Opportunity">Hiring / Full-time Opportunity
+                                        </option>
+                                        <option value="HR Consulting & Recruitment">HR Consulting &amp; Recruitment
+                                        </option>
+                                        <option value="Marketing & Brand Strategy">Marketing &amp; Brand Strategy
+                                        </option>
+                                        <option value="General Collaboration">General Collaboration</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-group-full">
+                                <label class="form-label" for="userMessage">MESSAGE *</label>
+                                <textarea id="userMessage" name="message" class="form-input form-textarea" rows="4"
+                                    placeholder="Describe your role, opportunity, or inquiry..." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-submit-row">
+                            <button type="submit" class="btn-amber btn-submit" id="submitBtn">
+                                <span id="btnText">Send Message</span>
+                                <span class="btn-icon" id="btnArrow">→</span>
+                            </button>
+                        </div>
+
+                        <div class="form-status-message" id="formStatus" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+         FOOTER
+         ========================================================================== -->
+        <footer class="footer">
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <span class="footer-brand">© Suyash Sonkar</span>
+                    <span class="footer-desc">MBA in Human Resource &amp; Marketing</span>
+                </div>
+
+                <nav class="footer-nav">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#education">Education</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#resume">Resume</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+
+                <div class="footer-right">
+                    <a href="#home" class="btn-back-top" id="backToTopBtn">
+                        <span>Back to Top ↑</span>
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
