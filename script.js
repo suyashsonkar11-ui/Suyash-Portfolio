@@ -1,345 +1,69 @@
 /**
  * SUYASH SONKAR — PORTFOLIO ENGINE
  * Features:
- * 1. Hardware-Accelerated WebGL/2D Canvas Scroll-Scrubbing (240 frames)
- * 2. Natural Color Studio Black-Chroma Keying
- * 3. Smooth LERP Animation Loop with High-DPI Display Support
- * 4. Active Navigation Tracking & Navbar Scrolled State
- * 5. Mobile Hamburger Drawer Menu
- * 6. Interactive Skills Category Filter Tabs
- * 7. Interactive Form Validation & Feedback
- * 8. Smooth Anchor Scrolling & Back to Top
+ * 1. Minimal Elegant Preloader Screen
+ * 2. Active Navigation Tracking & Navbar Scrolled State
+ * 3. Mobile Hamburger Drawer Menu
+ * 4. Interactive Skills Category Filter Tabs
+ * 5. Interactive Form Validation & Feedback
+ * 6. About Page HR / Marketing Tab Switcher with Touch Swipe
  */
 
 (function () {
   'use strict';
 
   /* ==========================================================================
-     1. SCROLL-DRIVEN 3D CHARACTER ANIMATION (240 FRAMES)
+     1. PRELOADER SCREEN DISMISSAL
      ========================================================================== */
-  const FRAME_COUNT = 240;
-  const FOLDER_PATH = 'Website';
-  const FRAME_PREFIX = 'ezgif-frame-';
-  const FRAME_EXTENSION = '.jpg';
-
-  const canvas = document.getElementById('scrollCanvas');
-  const canvasWrapper = document.querySelector('.canvas-wrapper');
-  const fallbackImage = document.getElementById('firstFrameFallback');
   const preloader = document.getElementById('preloader');
   const loaderBarFill = document.getElementById('loaderBarFill');
   const loaderText = document.getElementById('loaderText');
-  const heroBgLayer = document.getElementById('heroBgLayer');
-
-  let gl = null;
-  let glProgram = null;
-  let glTexture = null;
-  let positionBuffer = null;
-  let texCoordBuffer = null;
-  let isWebGL = false;
-  let ctx2d = null;
-
-  // Setup WebGL with Transparent Black Keyout in Full Natural Vibrant Color
-  function setupRenderer() {
-    if (!canvas) return;
-
-    try {
-      gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false, antialias: true }) ||
-        canvas.getContext('experimental-webgl', { alpha: true, premultipliedAlpha: false, antialias: true });
-
-      if (gl) {
-        const vsSource = `
-          attribute vec2 a_position;
-          attribute vec2 a_texCoord;
-          varying vec2 v_texCoord;
-          void main() {
-            gl_Position = vec4(a_position, 0.0, 1.0);
-            v_texCoord = a_texCoord;
-          }
-        `;
-
-        const fsSource = `
-          #ifdef GL_FRAGMENT_PRECISION_HIGH
-          precision highp float;
-          #else
-          precision mediump float;
-          #endif
-          uniform sampler2D u_image;
-          varying vec2 v_texCoord;
-          void main() {
-            vec4 color = texture2D(u_image, v_texCoord);
-            // Smoothly key out pure black studio background (#000000)
-            float maxVal = max(color.r, max(color.g, color.b));
-            float alpha = smoothstep(0.012, 0.055, maxVal);
-            // Render portrait in full, natural, vibrant color
-            gl_FragColor = vec4(color.rgb * alpha, alpha);
-          }
-        `;
-
-        function createShader(glCtx, type, source) {
-          const s = glCtx.createShader(type);
-          glCtx.shaderSource(s, source);
-          glCtx.compileShader(s);
-          if (!glCtx.getShaderParameter(s, glCtx.COMPILE_STATUS)) {
-            glCtx.deleteShader(s);
-            return null;
-          }
-          return s;
-        }
-
-        const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
-        const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
-
-        if (vs && fs) {
-          glProgram = gl.createProgram();
-          gl.attachShader(glProgram, vs);
-          gl.attachShader(glProgram, fs);
-          gl.linkProgram(glProgram);
-
-          if (gl.getProgramParameter(glProgram, gl.LINK_STATUS)) {
-            gl.useProgram(glProgram);
-
-            // Quad buffer
-            positionBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-              -1.0, -1.0,
-              1.0, -1.0,
-              -1.0, 1.0,
-              -1.0, 1.0,
-              1.0, -1.0,
-              1.0, 1.0,
-            ]), gl.STATIC_DRAW);
-
-            // Tex coord buffer (flip Y for WebGL)
-            texCoordBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-              0.0, 1.0,
-              1.0, 1.0,
-              0.0, 0.0,
-              0.0, 0.0,
-              1.0, 1.0,
-              1.0, 0.0,
-            ]), gl.STATIC_DRAW);
-
-            glTexture = gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, glTexture);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-
-            gl.enable(gl.BLEND);
-            gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-
-            isWebGL = true;
-          }
-        }
-      }
-    } catch (e) {
-      isWebGL = false;
-    }
-
-    if (!isWebGL && canvas) {
-      ctx2d = canvas.getContext('2d', { alpha: true });
-    }
-  }
-
-  function hideFallbackImage() {
-    if (fallbackImage) {
-      fallbackImage.style.display = 'none';
-    }
-    if (canvasWrapper) {
-      canvasWrapper.classList.add('is-animated');
-    }
-  }
-
-  const images = new Array(FRAME_COUNT);
-  let loadedCount = 0;
-  let currentFrame = 0;
-  let targetFrame = 0;
-  let preloaderHidden = false;
-
-  function getFrameUrl(index) {
-    const paddedIndex = String(index + 1).padStart(3, '0');
-    return `${FOLDER_PATH}/${FRAME_PREFIX}${paddedIndex}${FRAME_EXTENSION}`;
-  }
-
-  function resizeCanvas() {
-    if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-
-    if (isWebGL && gl) {
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    } else if (ctx2d) {
-      ctx2d.imageSmoothingEnabled = true;
-      ctx2d.imageSmoothingQuality = 'high';
-    }
-
-    renderFrame(Math.round(currentFrame));
-  }
-
-  function drawImageFrame(img) {
-    if (!img || !img.complete || img.naturalWidth === 0) return;
-
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-    const imgWidth = img.naturalWidth;
-    const imgHeight = img.naturalHeight;
-
-    // Center-right positioning and scale matching the reference design
-    const isMobile = window.innerWidth <= 768;
-    const scale = isMobile
-      ? Math.max(canvasHeight * 0.85 / imgHeight, canvasWidth * 0.95 / imgWidth)
-      : Math.max(canvasHeight * 1.05 / imgHeight, canvasWidth * 0.72 / imgWidth);
-
-    const renderWidth = Math.round(imgWidth * scale);
-    const renderHeight = Math.round(imgHeight * scale);
-
-    const targetCenterX = isMobile ? canvasWidth * 0.5 : canvasWidth * 0.538;
-    const offsetX = Math.round(targetCenterX - (renderWidth * 0.5));
-    const offsetY = Math.round(canvasHeight - renderHeight + (canvasHeight * 0.03));
-
-    if (isWebGL && gl && glProgram) {
-      gl.viewport(offsetX, offsetY, renderWidth, renderHeight);
-      gl.clearColor(0.0, 0.0, 0.0, 0.0);
-      gl.clear(gl.COLOR_BUFFER_BIT);
-
-      gl.useProgram(glProgram);
-
-      const aPosLoc = gl.getAttribLocation(glProgram, 'a_position');
-      gl.enableVertexAttribArray(aPosLoc);
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.vertexAttribPointer(aPosLoc, 2, gl.FLOAT, false, 0, 0);
-
-      const aTexLoc = gl.getAttribLocation(glProgram, 'a_texCoord');
-      gl.enableVertexAttribArray(aTexLoc);
-      gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-      gl.vertexAttribPointer(aTexLoc, 2, gl.FLOAT, false, 0, 0);
-
-      gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, glTexture);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-
-      const uImgLoc = gl.getUniformLocation(glProgram, 'u_image');
-      gl.uniform1i(uImgLoc, 0);
-
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-    } else if (ctx2d) {
-      ctx2d.clearRect(0, 0, canvasWidth, canvasHeight);
-      ctx2d.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
-    }
-  }
-
-  function renderFrame(frameIdx) {
-    const targetIdx = Math.max(0, Math.min(FRAME_COUNT - 1, frameIdx));
-    let img = images[targetIdx];
-
-    if (!img || !img.complete || img.naturalWidth === 0) {
-      for (let offset = 1; offset < FRAME_COUNT; offset++) {
-        const prev = targetIdx - offset;
-        const next = targetIdx + offset;
-        if (prev >= 0 && images[prev] && images[prev].complete && images[prev].naturalWidth > 0) {
-          img = images[prev];
-          break;
-        }
-        if (next < FRAME_COUNT && images[next] && images[next].complete && images[next].naturalWidth > 0) {
-          img = images[next];
-          break;
-        }
-      }
-    }
-
-    if (img && img.complete) {
-      drawImageFrame(img);
-    }
-  }
-
-  function updateTargetFrame() {
-    const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-    const docHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight
-    );
-    const maxScroll = Math.max(1, docHeight - window.innerHeight);
-    const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
-    targetFrame = scrollFraction * (FRAME_COUNT - 1);
-
-    // Subtle fade of the background watermark title as user leaves hero
-    if (heroBgLayer) {
-      const fadeThreshold = window.innerHeight * 0.6;
-      const heroOpacity = Math.max(0, Math.min(0.18, 0.18 * (1 - (scrollTop / fadeThreshold))));
-      heroBgLayer.style.opacity = heroOpacity.toFixed(3);
-    }
-  }
-
-  function animate() {
-    updateTargetFrame();
-
-    const diff = targetFrame - currentFrame;
-    if (Math.abs(diff) > 0.001) {
-      currentFrame += diff * 0.1;
-      renderFrame(Math.round(currentFrame));
-    } else if (currentFrame !== targetFrame) {
-      currentFrame = targetFrame;
-      renderFrame(Math.round(currentFrame));
-    }
-
-    requestAnimationFrame(animate);
-  }
 
   function hidePreloader() {
-    if (preloaderHidden) return;
-    preloaderHidden = true;
-    if (preloader) {
-      preloader.classList.add('loaded');
+    if (!preloader) return;
+    if (loaderBarFill) loaderBarFill.style.width = '100%';
+    if (loaderText) loaderText.textContent = '100%';
+    preloader.classList.add('loaded');
+    setTimeout(() => {
+      preloader.style.display = 'none';
+    }, 450);
+  }
+
+  // Dismiss preloader smoothly on window load
+  if (document.readyState === 'complete') {
+    hidePreloader();
+  } else {
+    window.addEventListener('load', hidePreloader, { once: true });
+    setTimeout(hidePreloader, 1200);
+  }
+
+  /* ======================================================================
+     HERO NAME — Fit the complete name to every viewport width
+     ====================================================================== */
+  function fitHeroName() {
+    const nameBg = document.querySelector('.hero-name-bg');
+    const nameWords = nameBg?.querySelectorAll('.hero-name-word');
+    if (!nameBg || !nameWords || nameWords.length !== 2) return;
+
+    // Measure at a stable size, then scale the words to 97% of usable width.
+    nameBg.style.setProperty('--hero-name-size', '100px');
+    const firstWord = nameWords[0].getBoundingClientRect();
+    const lastWord = nameWords[nameWords.length - 1].getBoundingClientRect();
+    const wordWidth = lastWord.right - firstWord.left;
+    const styles = window.getComputedStyle(nameBg);
+    const availableWidth = nameBg.clientWidth
+      - parseFloat(styles.paddingLeft)
+      - parseFloat(styles.paddingRight);
+
+    if (wordWidth > 0 && availableWidth > 0) {
+      nameBg.style.setProperty('--hero-name-size', `${Math.floor((availableWidth / wordWidth) * 97)}px`);
     }
   }
 
-  function preloadImages() {
-    for (let i = 0; i < FRAME_COUNT; i++) {
-      const img = new Image();
-      img.src = getFrameUrl(i);
-
-      img.onload = () => {
-        loadedCount++;
-        images[i] = img;
-
-        if (i === 0) {
-          renderFrame(0);
-          hideFallbackImage();
-        }
-
-        const percent = Math.floor((loadedCount / FRAME_COUNT) * 100);
-        if (loaderBarFill) loaderBarFill.style.width = `${percent}%`;
-        if (loaderText) loaderText.textContent = `${percent}%`;
-
-        if (loadedCount >= 10 && !preloaderHidden) {
-          hidePreloader();
-        }
-
-        if (loadedCount === FRAME_COUNT && !preloaderHidden) {
-          hidePreloader();
-        }
-      };
-
-      img.onerror = () => {
-        loadedCount++;
-        if (loadedCount >= 10 && !preloaderHidden) {
-          hidePreloader();
-        }
-      };
-    }
-  }
+  window.addEventListener('resize', fitHeroName, { passive: true });
+  window.addEventListener('load', fitHeroName, { once: true });
+  if (document.fonts?.ready) document.fonts.ready.then(fitHeroName);
+  fitHeroName();
 
   /* ==========================================================================
      2. NAVIGATION & ACTIVE SECTION HIGHLIGHTING
@@ -488,22 +212,221 @@
   }
 
   /* ==========================================================================
-     6. INITIALIZATION & GLOBAL EVENT LISTENERS
+     6. FULL-PAGE SCROLL-DRIVEN PORTRAIT ANIMATION (240 FRAMES)
      ========================================================================== */
-  window.addEventListener('resize', resizeCanvas, { passive: true });
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  (function initPortraitAnimation() {
+    const TOTAL_FRAMES = 240;
+    const FRAME_PATH = 'Website/ezgif-frame-';
+    const RENDER_SCALE = 0.5;
+    const canvas = document.getElementById('heroCanvas');
+    const fallbackImg = document.getElementById('heroFallbackImg');
+    if (!canvas) return;
 
-  setupRenderer();
-  resizeCanvas();
-  preloadImages();
-  animate();
-  handleScroll();
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-  // Safety preloader dismiss
-  setTimeout(hidePreloader, 3500);
+    // Frame storage
+    const frames = new Array(TOTAL_FRAMES).fill(null);
+    let loadedCount = 0;
+    let lastDrawnFrame = -1;
+    let canvasReady = false;
+    let currentSmooth = 0; // smoothed frame index
+
+    // Build frame filename: ezgif-frame-001.jpg ... ezgif-frame-240.jpg
+    function frameSrc(index) {
+      const num = String(index + 1).padStart(3, '0');
+      return FRAME_PATH + num + '.jpg';
+    }
+
+    // Resize canvas to match image dimensions
+    function setupCanvas(img) {
+      if (canvasReady) return;
+      // The source sequence has a black studio backdrop. Render at a practical
+      // resolution and key that backdrop out so the hero typography remains
+      // visible behind the portrait.
+      canvas.width = Math.round(img.naturalWidth * RENDER_SCALE);
+      canvas.height = Math.round(img.naturalHeight * RENDER_SCALE);
+
+      // Set canvas display size to match the wrapper
+      const wrap = canvas.parentElement;
+      if (wrap) {
+        const wrapH = wrap.clientHeight;
+        const aspect = img.naturalWidth / img.naturalHeight;
+        canvas.style.height = wrapH + 'px';
+        canvas.style.width = (wrapH * aspect) + 'px';
+      }
+      canvasReady = true;
+    }
+
+    function removeDarkBackdrop() {
+      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const pixels = frame.data;
+
+      for (let pixel = 0; pixel < pixels.length; pixel += 4) {
+        const brightest = Math.max(pixels[pixel], pixels[pixel + 1], pixels[pixel + 2]);
+        if (brightest < 18) {
+          pixels[pixel + 3] = 0;
+        } else if (brightest < 42) {
+          pixels[pixel + 3] = Math.round(((brightest - 18) / 24) * 255);
+        }
+      }
+
+      ctx.putImageData(frame, 0, 0);
+    }
+
+    // Draw a frame on canvas
+    function drawFrame(index) {
+      if (index === lastDrawnFrame) return;
+      const img = frames[index];
+      if (!img) {
+        // Find nearest loaded frame
+        let nearest = -1;
+        let minDist = TOTAL_FRAMES;
+        for (let i = 0; i < TOTAL_FRAMES; i++) {
+          if (frames[i] && Math.abs(i - index) < minDist) {
+            minDist = Math.abs(i - index);
+            nearest = i;
+          }
+        }
+        if (nearest >= 0 && frames[nearest]) {
+          drawFrame(nearest);
+        }
+        return;
+      }
+
+      setupCanvas(img);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      removeDarkBackdrop();
+      lastDrawnFrame = index;
+
+      // Hide fallback once canvas is painting
+      if (fallbackImg && fallbackImg.style.display !== 'none') {
+        fallbackImg.style.display = 'none';
+      }
+    }
+
+    // Load a single frame, returns Promise
+    function loadFrame(index) {
+      return new Promise(function (resolve) {
+        if (frames[index]) { resolve(); return; }
+        const img = new Image();
+        img.onload = function () {
+          frames[index] = img;
+          loadedCount++;
+          resolve();
+        };
+        img.onerror = function () { resolve(); };
+        img.src = frameSrc(index);
+      });
+    }
+
+    // Progressive loading strategy:
+    // Phase 1: Load every 10th frame (24 frames) — fast skeleton
+    // Phase 2: Load every 5th frame (fill gaps)
+    // Phase 3: Load remaining frames
+    async function loadAllFrames() {
+      // Phase 1: Key frames (every 10th)
+      const phase1 = [];
+      for (let i = 0; i < TOTAL_FRAMES; i += 10) phase1.push(i);
+      // Always include first and last
+      if (!phase1.includes(0)) phase1.unshift(0);
+      if (!phase1.includes(TOTAL_FRAMES - 1)) phase1.push(TOTAL_FRAMES - 1);
+
+      await Promise.all(phase1.map(loadFrame));
+
+      // Draw first frame immediately
+      if (frames[0]) drawFrame(0);
+
+      // Phase 2: Every 5th (skip already loaded)
+      const phase2 = [];
+      for (let i = 0; i < TOTAL_FRAMES; i += 5) {
+        if (!frames[i]) phase2.push(i);
+      }
+      // Load in batches of 8 to avoid network congestion
+      for (let b = 0; b < phase2.length; b += 8) {
+        await Promise.all(phase2.slice(b, b + 8).map(loadFrame));
+      }
+
+      // Phase 3: All remaining
+      const phase3 = [];
+      for (let i = 0; i < TOTAL_FRAMES; i++) {
+        if (!frames[i]) phase3.push(i);
+      }
+      for (let b = 0; b < phase3.length; b += 8) {
+        await Promise.all(phase3.slice(b, b + 8).map(loadFrame));
+      }
+    }
+
+    // Map the entire website scroll range to the complete 240-frame sequence.
+    function getTargetFrame() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight
+      );
+      const maxScroll = Math.max(1, documentHeight - window.innerHeight);
+      const progress = Math.max(0, Math.min(1, scrollY / maxScroll));
+      return Math.floor(progress * (TOTAL_FRAMES - 1));
+    }
+
+    // Animation loop with smoothing
+    let ticking = false;
+    function animate() {
+      const target = getTargetFrame();
+      // Smooth lerp towards target
+      currentSmooth += (target - currentSmooth) * 0.15;
+      const frameIndex = Math.round(currentSmooth);
+      const clampedIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, frameIndex));
+      drawFrame(clampedIndex);
+
+      // Keep animating if not settled
+      if (Math.abs(target - currentSmooth) > 0.5) {
+        requestAnimationFrame(animate);
+      } else {
+        ticking = false;
+      }
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(animate);
+      }
+    }
+
+    // Handle window resize — recalculate canvas display size
+    function onResize() {
+      if (!canvasReady || !frames[0]) return;
+      const img = frames[0];
+      const wrap = canvas.parentElement;
+      if (wrap) {
+        const wrapH = wrap.clientHeight;
+        const aspect = img.naturalWidth / img.naturalHeight;
+        canvas.style.height = wrapH + 'px';
+        canvas.style.width = (wrapH * aspect) + 'px';
+      }
+      lastDrawnFrame = -1; // force redraw
+      const target = getTargetFrame();
+      drawFrame(Math.max(0, Math.min(TOTAL_FRAMES - 1, target)));
+    }
+
+    // Start loading and attach scroll listener
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
+    loadAllFrames();
+    // Sync immediately when the page opens on an anchor or a restored scroll position.
+    onScroll();
+  })();
 
   /* ==========================================================================
-     7. ABOUT PAGE — HR / MARKETING TAB SWITCHER
+     7. INITIALIZATION & GLOBAL EVENT LISTENERS
+     ========================================================================== */
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  /* ==========================================================================
+     8. ABOUT PAGE — HR / MARKETING TAB SWITCHER
      ========================================================================== */
   (function initAboutSwitcher() {
     const tabs = document.querySelectorAll('.switcher-tab');

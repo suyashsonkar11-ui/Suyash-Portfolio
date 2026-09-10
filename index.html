@@ -31,24 +31,6 @@
         </div>
     </div>
 
-    <!-- Ambient Golden Background Atmosphere -->
-    <div class="ambient-glow ambient-glow-1" aria-hidden="true"></div>
-    <div class="ambient-glow ambient-glow-2" aria-hidden="true"></div>
-
-    <!-- Fixed Background Watermark Title Layer -->
-    <div class="hero-bg-layer" id="heroBgLayer" aria-hidden="true">
-        <div class="hero-huge-title">
-            <span class="hero-title-word hero-title-first">SUYASH</span>
-            <span class="hero-title-word hero-title-last">SONKAR</span>
-        </div>
-    </div>
-
-    <!-- Fixed Canvas Viewport (Natural Color Character with Transparent Cutout) -->
-    <div class="canvas-wrapper">
-        <img id="firstFrameFallback" src="Website/ezgif-frame-001.jpg" alt="Suyash Sonkar" class="canvas-fallback-img">
-        <canvas id="scrollCanvas"></canvas>
-    </div>
-
     <!-- Fixed Header Navigation Bar -->
     <header class="navbar" id="navbar">
         <div class="nav-brand">
@@ -107,90 +89,34 @@
         <section class="section section-hero" id="home">
             <h1 class="sr-only">Suyash Sonkar — Human Resource &amp; Marketing Portfolio</h1>
 
-            <!-- Left Glass Content Panel (Guaranteed Readability) -->
-            <div class="hero-content-grid">
-                <div class="hero-glass-panel glass-card">
-                    <div class="hero-badge">
-                        <span class="pulse-dot"></span>
-                        <span class="badge-text">WELCOME TO MY PORTFOLIO</span>
-                    </div>
-
-                    <h2 class="hero-headline">
-                        Turning <span class="text-amber">People</span>, Processes &amp; Possibilities into <span
-                            class="text-amber">Progress</span>.
-                    </h2>
-
-                    <p class="hero-desc">
-                        I am a highly motivated MBA professional specializing in <strong>Human Resource
-                            Management</strong> and <strong>Marketing</strong>. Experienced in recruitment analysis,
-                        vocational training at SECL &amp; SECR, and combining analytics with people-centric strategy.
-                    </p>
-
-                    <!-- Hero Action Buttons -->
-                    <div class="hero-actions">
-                        <a href="#projects" class="btn-amber">
-                            <span>View My Work</span>
-                            <span class="btn-icon">→</span>
-                        </a>
-                        <a href="./resume.pdf" download="Suyash-Sonkar-Resume.pdf" class="btn-glass">
-                            <span>Download Resume</span>
-                            <span class="btn-icon">↓</span>
-                        </a>
-                    </div>
-
-                    <!-- Hero Statistic Counters -->
-                    <div class="hero-stats-row">
-                        <div class="stat-pill">
-                            <span class="stat-num">7+</span>
-                            <span class="stat-lbl">CGPA Academic</span>
-                        </div>
-                        <div class="stat-pill">
-                            <span class="stat-num">5+</span>
-                            <span class="stat-lbl">Key Skill Domains</span>
-                        </div>
-                        <div class="stat-pill">
-                            <span class="stat-num">2+</span>
-                            <span class="stat-lbl">Major Projects</span>
-                        </div>
-                        <div class="stat-pill">
-                            <span class="stat-num">100%</span>
-                            <span class="stat-lbl">Growth Mindset</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Glass Focus Card -->
-                <div class="hero-focus-card glass-card">
-                    <div class="focus-card-header">
-                        <span class="focus-tag">SPECIALIZATION</span>
-                        <h3 class="focus-title">CURRENTLY FOCUSED ON</h3>
-                    </div>
-                    <ul class="focus-list">
-                        <li class="focus-item">
-                            <span class="focus-bullet">✦</span>
-                            <span class="focus-text">Human Resource Management</span>
-                        </li>
-                        <li class="focus-item">
-                            <span class="focus-bullet">✦</span>
-                            <span class="focus-text">Recruitment &amp; Selection</span>
-                        </li>
-                        <li class="focus-item">
-                            <span class="focus-bullet">✦</span>
-                            <span class="focus-text">Training &amp; Development</span>
-                        </li>
-                        <li class="focus-item">
-                            <span class="focus-bullet">✦</span>
-                            <span class="focus-text">HR Analytics &amp; Reporting</span>
-                        </li>
-                        <li class="focus-item">
-                            <span class="focus-bullet">✦</span>
-                            <span class="focus-text">Organizational Growth Strategy</span>
-                        </li>
-                    </ul>
-                </div>
+            <!-- Large Textured Background Typography Behind Portrait -->
+            <div class="hero-name-bg" aria-hidden="true">
+                <span class="hero-name-word hero-name-first">SUYASH</span>
+                <span class="hero-name-word hero-name-last">SONKAR</span>
             </div>
 
-            <!-- Bottom-Left Social Links (Exact Style of Reference) -->
+            <div class="hero-grid-lines" aria-hidden="true"></div>
+            <div class="hero-orbit hero-orbit-main" aria-hidden="true"></div>
+            <div class="hero-orbit hero-orbit-small" aria-hidden="true"></div>
+
+            <!-- Authentic Portrait Layered in Front of Name -->
+            <div class="hero-portrait-wrap">
+                <canvas id="heroCanvas" class="hero-portrait-img" aria-label="Suyash Sonkar animated portrait"></canvas>
+                <img src="Website/ezgif-frame-001.jpg" alt="Suyash Sonkar" class="hero-portrait-img hero-fallback-img" loading="eager" fetchpriority="high" id="heroFallbackImg">
+            </div>
+
+            <aside class="hero-specialization-card" aria-label="Professional specialization">
+                <span class="hero-specialization-label">Specialization</span>
+                <ul class="hero-specialization-list">
+                    <li><span aria-hidden="true">⌘</span>Human Resource Management</li>
+                    <li><span aria-hidden="true">⌕</span>Recruitment &amp; Selection</li>
+                    <li><span aria-hidden="true">↗</span>Training &amp; Development</li>
+                    <li><span aria-hidden="true">▥</span>HR Analytics &amp; Reporting</li>
+                    <li><span aria-hidden="true">◎</span>Organizational Growth Strategy</li>
+                </ul>
+            </aside>
+
+            <!-- Bottom-Left Social Links -->
             <div class="hero-bottom-row">
                 <div class="hero-socials">
                     <a href="https://www.linkedin.com/in/suyash-sonkar-b42b49272/" target="_blank"
@@ -225,7 +151,6 @@
                 <div class="about-main-card glass-card">
                     <div class="about-badge-row">
                         <span class="about-role-tag">MBA SCHOLAR</span>
-                        <span class="about-avail-tag">AVAILABLE FOR OPPORTUNITIES</span>
                     </div>
 
                     <h3 class="about-card-title">Academic Foundation &amp; Professional Vision</h3>
@@ -233,7 +158,7 @@
                     <p class="about-card-desc">
                         I am an ambitious and dedicated postgraduate scholar currently pursuing my MBA at <strong>Guru
                             Ghasidas Central University, Bilaspur</strong>. My unique academic journey combines a solid
-                        foundation in Science (B.Sc.) and Education (B.Ed.), bringing together structured analytical
+                        foundation in Science (B.Sc.) and M.A. Education, bringing together structured analytical
                         discipline and strong pedagogical communication skills.
                     </p>
                     <p class="about-card-desc">
@@ -258,8 +183,8 @@
                         </div>
                         <div class="strength-box">
                             <div class="strength-icon">📚</div>
-                            <h4 class="strength-name">Pedagogy &amp; Education</h4>
-                            <p class="strength-desc">B.Ed. training cultivating structured communication and active
+                            <h4 class="strength-name">M.A. Education</h4>
+                            <p class="strength-desc">Postgraduate education training cultivating structured communication and active
                                 listening.</p>
                         </div>
                         <div class="strength-box">
@@ -316,10 +241,6 @@
                                 <span class="meta-label">Experience</span>
                                 <span class="meta-value">SECL Bilaspur &amp; SECR Bilaspur</span>
                             </div>
-                            <div class="meta-entry">
-                                <span class="meta-label">Availability</span>
-                                <span class="meta-value text-amber">Immediate / 2026</span>
-                            </div>
                         </div>
                     </div>
 
@@ -351,10 +272,6 @@
                             <div class="meta-entry">
                                 <span class="meta-label">Toolkit</span>
                                 <span class="meta-value">Canva, AI Tools, Market Research</span>
-                            </div>
-                            <div class="meta-entry">
-                                <span class="meta-label">Availability</span>
-                                <span class="meta-value text-amber">Immediate / 2026</span>
                             </div>
                         </div>
                     </div>
@@ -819,28 +736,26 @@
                         </ul>
                     </div>
 
-                    <div class="resume-block glass-card">
-                        <h3 class="block-title">
-                            <span class="title-text">LANGUAGES</span>
-                            <span class="amber-bullet">✦</span>
-                        </h3>
-                        <ul class="resume-list">
-                            <li><span class="dash text-amber">—</span> Hindi (Native / Full Proficiency)</li>
-                            <li><span class="dash text-amber">—</span> English (Professional Working Proficiency)</li>
-                        </ul>
-                    </div>
+
 
                     <div class="resume-block glass-card">
                         <h3 class="block-title">
-                            <span class="title-text">EXTRA-CURRICULAR ACTIVITIES</span>
+                            <span class="title-text">VOCATIONAL TRAINING</span>
                             <span class="amber-bullet">✦</span>
                         </h3>
-                        <ul class="resume-list">
-                            <li><span class="dash text-amber">—</span> Represented school at district level in Kho-Kho
-                                &amp; Athletics.</li>
-                            <li><span class="dash text-amber">—</span> Keen enthusiast of Generative AI tools, modern
-                                tech, and continuous learning.</li>
-                        </ul>
+                        <div class="resume-sub-entries">
+                            <div class="resume-entry">
+                                <span class="entry-year text-amber">01 SECL BILASPUR</span>
+                                <h4 class="entry-title">South Eastern Coalfields Limited (SECL)</h4>
+                                <p class="entry-sub">HR Vocational Training • Study on Employee Grievance Redressal</p>
+                            </div>
+                            <div class="resume-entry">
+                                <span class="entry-year text-amber">02 SECR BILASPUR</span>
+                                <h4 class="entry-title">South East Central Railway (SECR)</h4>
+                                <p class="entry-sub">HR &amp; Personnel Vocational Training • Administrative Procedures
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -873,22 +788,15 @@
 
                     <div class="resume-block glass-card">
                         <h3 class="block-title">
-                            <span class="title-text">VOCATIONAL TRAINING</span>
+                            <span class="title-text">EXTRA-CURRICULAR ACTIVITIES</span>
                             <span class="amber-bullet">✦</span>
                         </h3>
-                        <div class="resume-sub-entries">
-                            <div class="resume-entry">
-                                <span class="entry-year text-amber">01 SECL BILASPUR</span>
-                                <h4 class="entry-title">South Eastern Coalfields Limited (SECL)</h4>
-                                <p class="entry-sub">HR Vocational Training • Study on Employee Grievance Redressal</p>
-                            </div>
-                            <div class="resume-entry">
-                                <span class="entry-year text-amber">02 SECR BILASPUR</span>
-                                <h4 class="entry-title">South East Central Railway (SECR)</h4>
-                                <p class="entry-sub">HR &amp; Personnel Vocational Training • Administrative Procedures
-                                </p>
-                            </div>
-                        </div>
+                        <ul class="resume-list">
+                            <li><span class="dash text-amber">—</span> Represented school at district level in Kho-Kho
+                                &amp; Athletics.</li>
+                            <li><span class="dash text-amber">—</span> Keen enthusiast of Generative AI tools, modern
+                                tech, and continuous learning.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -927,15 +835,7 @@
                         </div>
                     </div>
 
-                    <div class="resume-block glass-card contact-snippet-block">
-                        <h3 class="block-title">
-                            <span class="title-text">DIRECT CONTACT</span>
-                            <span class="amber-bullet">✦</span>
-                        </h3>
-                        <p class="contact-snippet-line"><strong>Phone:</strong> +91 8400015585</p>
-                        <p class="contact-snippet-line"><strong>Email:</strong> suyashsonkar11@gmail.com</p>
-                        <p class="contact-snippet-line"><strong>Location:</strong> Kanpur Nagar, UP</p>
-                    </div>
+
                 </div>
             </div>
         </section>
@@ -961,14 +861,6 @@
                         <div class="contact-card-text">
                             <span class="contact-label">EMAIL ADDRESS</span>
                             <a href="mailto:suyashsonkar11@gmail.com" class="contact-value">suyashsonkar11@gmail.com</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-card glass-card">
-                        <div class="contact-card-icon">📞</div>
-                        <div class="contact-card-text">
-                            <span class="contact-label">PHONE / WHATSAPP</span>
-                            <a href="tel:+918400015585" class="contact-value">+91 8400015585</a>
                         </div>
                     </div>
 
