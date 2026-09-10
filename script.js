@@ -216,7 +216,7 @@
      ========================================================================== */
   (function initPortraitAnimation() {
     const TOTAL_FRAMES = 240;
-    const FRAME_PATH = 'Website/ezgif-frame-';
+    const FRAME_PATH = '/Website/ezgif-frame-';
     const RENDER_SCALE = 0.5;
     const canvas = document.getElementById('heroCanvas');
     const fallbackImg = document.getElementById('heroFallbackImg');
@@ -326,6 +326,20 @@
     // Phase 2: Load every 5th frame (fill gaps)
     // Phase 3: Load remaining frames
     async function loadAllFrames() {
+      // Test if frame path is accessible; if not, show static fallback immediately.
+      try {
+        const testImg = new Image();
+        testImg.src = frameSrc(0);
+        await new Promise(function (resolve, reject) {
+          testImg.onload = resolve;
+          testImg.onerror = reject;
+        });
+      } catch (e) {
+        console.warn('Frame path not accessible, falling back to static image.', e);
+        if (fallbackImg) fallbackImg.style.display = 'block';
+        if (canvas) canvas.style.display = 'none';
+        return;
+      }
       // Phase 1: Key frames (every 10th)
       const phase1 = [];
       for (let i = 0; i < TOTAL_FRAMES; i += 10) phase1.push(i);
