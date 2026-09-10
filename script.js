@@ -216,7 +216,7 @@
      ========================================================================== */
   (function initPortraitAnimation() {
     const TOTAL_FRAMES = 240;
-    const FRAME_PATH = 'Website/ezgif-frame-';
+    const FRAME_PATH = 'website/ezgif-frame-';
     const RENDER_SCALE = 0.5;
     const canvas = document.getElementById('heroCanvas');
     const fallbackImg = document.getElementById('heroFallbackImg');
