@@ -1407,6 +1407,29 @@ canvas.hero-portrait-img {
   line-height: 1.3;
 }
 
+.project-title a {
+  color: #FFFFFF;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color var(--transition-fast);
+}
+
+.project-title a:hover {
+  color: var(--color-amber-light);
+}
+
+.project-title a .project-link-icon {
+  font-size: 0.85em;
+  color: var(--color-amber);
+  transition: transform var(--transition-fast);
+}
+
+.project-title a:hover .project-link-icon {
+  transform: translate(2px, -2px);
+}
+
 .project-desc {
   font-size: 0.87rem;
   color: var(--color-text-body);
