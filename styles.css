@@ -593,9 +593,9 @@ body::-webkit-scrollbar-thumb:hover {
   display: inline-block;
   white-space: nowrap;
 
-  color: #FFFFFF;
-  -webkit-text-fill-color: #FFFFFF;
-  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.7);
+  color: #4e4e4e;
+  -webkit-text-fill-color: #4e4e4e;
+  text-shadow: none;
   opacity: 1;
 }
 
