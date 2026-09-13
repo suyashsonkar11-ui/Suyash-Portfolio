@@ -432,13 +432,15 @@ body::-webkit-scrollbar-thumb:hover {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   cursor: pointer;
-  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .btn-glass:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #10B981;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
 }
 
 .btn-amber-small {
@@ -461,9 +463,13 @@ body::-webkit-scrollbar-thumb:hover {
   transition: transform var(--transition-fast);
 }
 
-.btn-amber:hover .btn-icon,
+.btn-amber:hover .btn-icon {
+  transform: translateY(2px);
+}
+
 .btn-glass:hover .btn-icon {
-  transform: translateX(3px);
+  color: #10B981;
+  transform: translate(2px, -2px);
 }
 
 /* ==========================================================================
