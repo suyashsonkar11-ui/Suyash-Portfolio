@@ -13,6 +13,47 @@
   'use strict';
 
   /* ==========================================================================
+     0. URL CLEANUP (STRIP UTM / TRACKING PARAMETERS)
+     Automatically removes UTM parameters (utm_source, utm_medium, utm_campaign,
+     utm_term, utm_content, and any parameter starting with utm_) using the
+     HTML5 History API (history.replaceState) without reloading the page,
+     while preserving path, hash, and non-UTM query parameters.
+     ========================================================================== */
+  function cleanTrackingParameters() {
+    try {
+      if (!window.location || !window.history || typeof window.history.replaceState !== 'function') {
+        return;
+      }
+
+      const currentUrl = new URL(window.location.href);
+      const keysToDelete = [];
+
+      for (const key of currentUrl.searchParams.keys()) {
+        if (key.toLowerCase().startsWith('utm_')) {
+          keysToDelete.push(key);
+        }
+      }
+
+      if (keysToDelete.length === 0) {
+        return;
+      }
+
+      keysToDelete.forEach(function (key) {
+        currentUrl.searchParams.delete(key);
+      });
+
+      const cleanUrl = currentUrl.pathname + currentUrl.search + currentUrl.hash;
+      window.history.replaceState(window.history.state, document.title, cleanUrl);
+    } catch (err) {
+      // Fail silently to ensure uninterrupted portfolio functionality
+    }
+  }
+
+  // Run immediately upon script evaluation and when restored from bfcache
+  cleanTrackingParameters();
+  window.addEventListener('pageshow', cleanTrackingParameters);
+
+  /* ==========================================================================
      1. PRELOADER SCREEN DISMISSAL
      ========================================================================== */
   const preloader = document.getElementById('preloader');
