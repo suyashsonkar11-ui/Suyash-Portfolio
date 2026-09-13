@@ -1285,13 +1285,15 @@ canvas.hero-portrait-img {
   border-radius: 6px;
 }
 
-.exp-cert-row {
+.exp-cert-row,
+.project-link-row {
   display: flex;
   align-items: center;
   margin-top: 0.85rem;
 }
 
-.exp-cert-btn {
+.exp-cert-btn,
+.project-link-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -1309,13 +1311,15 @@ canvas.hero-portrait-img {
   transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
-.exp-cert-btn .cert-icon {
+.exp-cert-btn .cert-icon,
+.project-link-btn .cert-icon {
   font-size: 0.88em;
   color: var(--color-amber);
   transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
-.exp-cert-btn:hover {
+.exp-cert-btn:hover,
+.project-link-btn:hover {
   color: #10B981;
   border-color: rgba(16, 185, 129, 0.5);
   background: rgba(16, 185, 129, 0.08);
@@ -1323,7 +1327,8 @@ canvas.hero-portrait-img {
   transform: translateY(-2px);
 }
 
-.exp-cert-btn:hover .cert-icon {
+.exp-cert-btn:hover .cert-icon,
+.project-link-btn:hover .cert-icon {
   color: #10B981;
   transform: translate(2px, -2px);
 }
