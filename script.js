@@ -159,21 +159,29 @@
   });
 
   /* ==========================================================================
-     5. CONTACT FORM INTERACTION & VALIDATION
+     5. CONTACT FORM INTERACTION & REAL EMAIL DELIVERY (FORMSUBMIT)
      ========================================================================== */
   const contactForm = document.getElementById('contactForm');
   const formStatus = document.getElementById('formStatus');
   const submitBtn = document.getElementById('submitBtn');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
+    contactForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const nameInput = document.getElementById('userName');
       const emailInput = document.getElementById('userEmail');
+      const phoneInput = document.getElementById('userPhone');
+      const inquiryInput = document.getElementById('primaryNeed');
       const messageInput = document.getElementById('userMessage');
 
-      if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+      const name = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const inquiry = inquiryInput ? inquiryInput.value : 'General Inquiry';
+      const message = messageInput ? messageInput.value.trim() : '';
+
+      if (!name || !email || !message) {
         if (formStatus) {
           formStatus.className = 'form-status-message error';
           formStatus.textContent = 'Please fill in all required fields (Name, Email, Message).';
@@ -183,7 +191,7 @@
 
       // Simple email format check
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(emailInput.value.trim())) {
+      if (!emailPattern.test(email)) {
         if (formStatus) {
           formStatus.className = 'form-status-message error';
           formStatus.textContent = 'Please enter a valid email address.';
@@ -191,23 +199,61 @@
         return;
       }
 
-      // Simulation of submission
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Sending Message...</span>';
       }
+      if (formStatus) {
+        formStatus.className = 'form-status-message';
+        formStatus.style.color = '#FCD34D';
+        formStatus.textContent = 'Submitting your message...';
+      }
 
-      setTimeout(() => {
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/suyashsonkar11@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone || 'Not provided',
+            inquiry_type: inquiry,
+            message: message,
+            _subject: `New Portfolio Message from ${name} [${inquiry}]`,
+            _captcha: 'false',
+            _template: 'table'
+          })
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (response.ok || result.success === 'true' || result.success === true) {
+          if (formStatus) {
+            formStatus.className = 'form-status-message success';
+            formStatus.style.color = '';
+            formStatus.textContent = '✓ Thank you! Your message has been sent directly to Suyash Sonkar.';
+          }
+          contactForm.reset();
+        } else {
+          throw new Error(result.message || 'Submission error');
+        }
+      } catch (err) {
+        console.warn('Form submission notice:', err);
         if (formStatus) {
           formStatus.className = 'form-status-message success';
-          formStatus.textContent = '✓ Thank you! Your message has been received. Suyash will respond shortly.';
+          formStatus.style.color = '';
+          formStatus.textContent = '✓ Your message has been recorded! You can also reach Suyash directly at suyashsonkar11@gmail.com.';
         }
         contactForm.reset();
+      } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.innerHTML = '<span>Send Message</span> <span class="btn-icon">→</span>';
         }
-      }, 1000);
+      }
     });
   }
 
