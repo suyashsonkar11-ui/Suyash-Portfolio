@@ -1285,6 +1285,49 @@ canvas.hero-portrait-img {
   border-radius: 6px;
 }
 
+.exp-cert-row {
+  display: flex;
+  align-items: center;
+  margin-top: 0.85rem;
+}
+
+.exp-cert-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.exp-cert-btn .cert-icon {
+  font-size: 0.88em;
+  color: var(--color-amber);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.exp-cert-btn:hover {
+  color: #10B981;
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.08);
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+.exp-cert-btn:hover .cert-icon {
+  color: #10B981;
+  transform: translate(2px, -2px);
+}
+
 /* ==========================================================================
    SECTION 5: SKILLS (TABS & INTERACTIVE CARDS)
    ========================================================================== */
