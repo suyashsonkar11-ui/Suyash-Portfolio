@@ -56,6 +56,7 @@ html {
   color: var(--color-text-main);
   font-family: var(--font-body);
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -104,6 +105,7 @@ body::-webkit-scrollbar-thumb:hover {
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background-color: var(--color-bg);
   z-index: 9999;
   display: flex;
@@ -260,21 +262,53 @@ body::-webkit-scrollbar-thumb:hover {
 .hamburger-btn {
   display: none;
   flex-direction: column;
-  justify-content: space-between;
-  width: 28px;
-  height: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 105;
+  border-radius: 8px;
+  transition: background var(--transition-fast);
+}
+
+.hamburger-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .ham-line {
-  width: 100%;
+  width: 24px;
   height: 2px;
   background-color: #FFFFFF;
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Mobile Drawer Overlay Backdrop */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 195;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* Mobile Drawer */
@@ -285,6 +319,7 @@ body::-webkit-scrollbar-thumb:hover {
   width: 80vw;
   max-width: 360px;
   height: 100vh;
+  height: 100dvh;
   background: rgba(10, 10, 14, 0.96);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -322,6 +357,17 @@ body::-webkit-scrollbar-thumb:hover {
   font-size: 1.8rem;
   cursor: pointer;
   line-height: 1;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background var(--transition-fast);
+}
+
+.drawer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .drawer-links {
@@ -552,7 +598,9 @@ body::-webkit-scrollbar-thumb:hover {
    ========================================================================== */
 .section-hero {
   height: 100vh;
+  height: 100dvh;
   min-height: 100vh;
+  min-height: 100dvh;
   max-width: 100%;
   width: 100%;
   position: relative;
@@ -1379,7 +1427,7 @@ canvas.hero-portrait-img {
 
 .skills-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
   gap: 1.4rem;
 }
 
@@ -1989,31 +2037,38 @@ canvas.hero-portrait-img {
 }
 
 @media (max-width: 768px) {
+  html {
+    scroll-padding-top: 65px;
+  }
+
   .navbar .nav-links {
     display: none;
   }
 
   .hamburger-btn {
-    display: flex;
+    display: inline-flex;
   }
 
   .section {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
     min-height: auto;
-    padding-top: 5.5rem;
-    padding-bottom: 3.5rem;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
   }
 
   .section-hero {
     height: 100vh;
+    height: 100dvh;
     min-height: 100vh;
+    min-height: 100dvh;
     padding: 0 !important;
     overflow: hidden;
   }
 
   .hero-name-bg {
     flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     padding: 0 0.8rem;
@@ -2023,14 +2078,16 @@ canvas.hero-portrait-img {
   .hero-name-word {
     font-size: var(--hero-name-size, clamp(2rem, 17vw, 7.5rem));
     line-height: 0.85;
+    white-space: nowrap;
   }
 
   .hero-portrait-wrap {
     left: 50%;
     transform: translateX(-50%);
-    height: clamp(380px, 72vh, 600px);
+    height: clamp(340px, 68vh, 560px);
     width: 100%;
     max-width: 100%;
+    pointer-events: none;
   }
 
   .hero-orbit-main {
@@ -2048,16 +2105,22 @@ canvas.hero-portrait-img {
   }
 
   .hero-portrait-img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     height: 100%;
-    width: 100%;
-    max-width: 100%;
+    width: auto;
+    max-width: none;
     object-fit: contain;
     object-position: bottom center;
+    display: block;
+    pointer-events: none;
   }
 
   .hero-bottom-row {
     bottom: 1.5rem;
-    left: 1.5rem;
+    left: 1.25rem;
   }
 
   .strengths-grid {
@@ -2072,27 +2135,84 @@ canvas.hero-portrait-img {
     grid-template-columns: 1fr;
   }
 
+  /* Prevent iOS Safari auto-zoom on mobile form inputs */
+  .form-input,
+  .form-select,
+  textarea.form-input {
+    font-size: 16px !important;
+  }
+
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
+  .section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 4.5rem;
+    padding-bottom: 2.5rem;
+  }
+
   .hero-name-bg {
-    padding: 0 0.5rem;
+    padding: 0 0.4rem;
   }
 
   .hero-name-word {
-    font-size: var(--hero-name-size, clamp(2rem, 17vw, 5rem));
+    font-size: var(--hero-name-size, clamp(1.8rem, 16.5vw, 4.5rem));
   }
 
   .hero-portrait-wrap {
-    height: clamp(330px, 68vh, 500px);
+    height: clamp(300px, 64vh, 480px);
+  }
+
+  .hero-bottom-row {
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .hero-socials {
+    gap: 0.5rem;
+  }
+
+  .social-link {
+    font-size: 0.85rem;
+  }
+
+  .skills-filter-tabs {
+    gap: 0.5rem;
+  }
+
+  .skill-tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
   }
 
   .resume-cta-group {
     flex-direction: column;
     width: 100%;
+    gap: 0.75rem;
+  }
+
+  .resume-cta-group .btn-amber,
+  .resume-cta-group .btn-glass {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .contact-card {
+    padding: 1.1rem;
+  }
+
+  .contact-form-card {
+    padding: 1.2rem !important;
+  }
+
+  .footer {
+    padding: 2.2rem 1.2rem;
   }
 }

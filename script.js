@@ -61,6 +61,10 @@
   }
 
   window.addEventListener('resize', fitHeroName, { passive: true });
+  window.addEventListener('orientationchange', () => {
+    setTimeout(fitHeroName, 60);
+    setTimeout(fitHeroName, 250);
+  }, { passive: true });
   window.addEventListener('load', fitHeroName, { once: true });
   if (document.fonts?.ready) document.fonts.ready.then(fitHeroName);
   fitHeroName();
@@ -111,20 +115,30 @@
      ========================================================================== */
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const mobileDrawer = document.getElementById('mobileDrawer');
+  const drawerOverlay = document.getElementById('drawerOverlay');
   const drawerCloseBtn = document.getElementById('drawerCloseBtn');
 
   function openDrawer() {
     if (mobileDrawer) mobileDrawer.classList.add('open');
+    if (drawerOverlay) drawerOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeDrawer() {
     if (mobileDrawer) mobileDrawer.classList.remove('open');
+    if (drawerOverlay) drawerOverlay.classList.remove('open');
     document.body.style.overflow = '';
   }
 
   if (hamburgerBtn) hamburgerBtn.addEventListener('click', openDrawer);
   if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
+  if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileDrawer && mobileDrawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  });
 
   drawerLinks.forEach((link) => {
     link.addEventListener('click', () => {
@@ -300,6 +314,7 @@
         const aspect = img.naturalWidth / img.naturalHeight;
         canvas.style.height = wrapH + 'px';
         canvas.style.width = (wrapH * aspect) + 'px';
+        canvas.style.maxWidth = 'none';
       }
       canvasReady = true;
     }
@@ -451,6 +466,7 @@
         const aspect = img.naturalWidth / img.naturalHeight;
         canvas.style.height = wrapH + 'px';
         canvas.style.width = (wrapH * aspect) + 'px';
+        canvas.style.maxWidth = 'none';
       }
       lastDrawnFrame = -1; // force redraw
       const target = getTargetFrame();
@@ -460,6 +476,10 @@
     // Start loading and attach scroll listener
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(onResize, 100);
+      setTimeout(onResize, 300);
+    }, { passive: true });
     loadAllFrames();
     // Sync immediately when the page opens on an anchor or a restored scroll position.
     onScroll();
