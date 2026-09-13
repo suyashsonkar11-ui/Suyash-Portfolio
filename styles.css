@@ -11,37 +11,59 @@
 }
 
 :root {
-  /* Color Identity: Deep Obsidian Black + Crisp White + Warm Amber/Gold */
-  --color-bg: #050507;
-  --color-bg-alt: #09090C;
-  --color-surface-glass: rgba(14, 14, 18, 0.82);
-  --color-surface-elevated: rgba(22, 22, 28, 0.9);
-  --color-surface-hover: rgba(28, 28, 36, 0.95);
+  /* Format 12 Creative Palette: Deep Obsidian Black + Secondary Slate + Rose & Purple Accents */
+  --bg: #0A0A0A;
+  --bg-alt: #121212;
+  --surface: #161616;
+  --surface-glass: rgba(22, 22, 26, 0.88);
+  --surface-elevated: rgba(28, 28, 34, 0.95);
+  --surface-hover: rgba(36, 36, 44, 0.98);
 
-  --color-text-main: #FFFFFF;
-  --color-text-body: #D1D5DB;
-  --color-text-muted: #9CA3AF;
-  --color-text-subtle: #6B7280;
+  --text: #F5F5F5;
+  --text-main: #FFFFFF;
+  --text-body: #D1D5DB;
+  --text-muted: #A0A0A0;
+  --text-subtle: #71717A;
 
-  --color-amber: #F59E0B;
-  --color-amber-light: #FBBF24;
-  --color-amber-bright: #FCD34D;
-  --color-amber-glow: rgba(245, 158, 11, 0.25);
-  --color-amber-subtle: rgba(245, 158, 11, 0.1);
-  --color-amber-border: rgba(245, 158, 11, 0.35);
+  --accent: #E11D48; /* Format 12 Rose Primary */
+  --accent-secondary: #A855F7; /* Format 12 Purple Secondary */
+  --accent-light: #FB7185;
+  --accent-bright: #FDA4AF;
+  --accent-glow: rgba(225, 29, 72, 0.25);
+  --accent-subtle: rgba(225, 29, 72, 0.1);
+  --accent-border: rgba(225, 29, 72, 0.35);
 
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.22);
 
-  /* Typography */
-  --font-condensed: 'Bebas Neue', 'Anton', sans-serif;
-  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Legacy variable mappings to maintain full backward compatibility across all components */
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface-glass: var(--surface-glass);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-hover: var(--surface-hover);
+  --color-text-main: var(--text-main);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-amber: var(--accent);
+  --color-amber-light: var(--accent-light);
+  --color-amber-bright: var(--accent-bright);
+  --color-amber-glow: var(--accent-glow);
+  --color-amber-subtle: var(--accent-subtle);
+  --color-amber-border: var(--accent-border);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+
+  /* Typography: Syne Display + Inter Body */
+  --font-condensed: 'Syne', 'Bebas Neue', 'Anton', sans-serif;
+  --font-display: 'Syne', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Glassmorphic Shadows & Filters (Reduced to 10% blur for crystal clear cards) */
+  /* Glassmorphic Shadows & Filters (Crystal clear 10% blur) */
   --glass-blur: blur(2px) saturate(105%);
   --glass-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --glass-shadow-amber: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px rgba(245, 158, 11, 0.18);
+  --glass-shadow-amber: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 25px rgba(225, 29, 72, 0.18);
 
   /* Animation Physics */
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
@@ -153,7 +175,7 @@ body::-webkit-scrollbar-thumb:hover {
 .loader-bar-fill {
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, var(--color-amber), var(--color-amber-light));
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
   transition: width 0.15s ease-out;
 }
 
@@ -167,7 +189,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* ==========================================================================
-   HEADER NAVIGATION BAR (BLACK + AMBER HIGHLIGHT)
+   HEADER NAVIGATION BAR (FORMAT 12 OBSIDIAN + ROSE/PURPLE HIGHLIGHT)
    ========================================================================== */
 .navbar {
   position: fixed;
@@ -179,17 +201,18 @@ body::-webkit-scrollbar-thumb:hover {
   justify-content: space-between;
   align-items: center;
   padding: 1.8rem clamp(2rem, 4vw, 4.5rem);
-  background: rgba(5, 5, 7, 0.7);
+  background: rgba(10, 10, 10, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: background 0.3s ease, padding 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar.scrolled {
   padding: 1.2rem clamp(2rem, 4vw, 4.5rem);
-  background: rgba(5, 5, 7, 0.92);
-  border-bottom-color: var(--color-border);
+  background: rgba(10, 10, 10, 0.94);
+  border-bottom-color: var(--border);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
 }
 
 .nav-brand a {
@@ -241,8 +264,8 @@ body::-webkit-scrollbar-thumb:hover {
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--color-amber);
-  box-shadow: 0 0 10px var(--color-amber);
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  box-shadow: 0 0 10px var(--accent-glow);
   border-radius: 2px;
   animation: navUnderline 0.3s var(--ease-smooth);
 }
@@ -414,11 +437,11 @@ body::-webkit-scrollbar-thumb:hover {
 .glass-card:hover {
   /* Keep rectangular card feedback restrained rather than visually dominant. */
   transform: translateY(-1px);
-  border-color: rgba(245, 158, 11, 0.2);
-  box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.62), 0 0 7px rgba(245, 158, 11, 0.045);
+  border-color: rgba(225, 29, 72, 0.25);
+  box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.65), 0 0 12px rgba(225, 29, 72, 0.08);
 }
 
-/* Glass Card Subtle Amber Accent Shimmer Line */
+/* Glass Card Subtle Rose/Purple Shimmer Line */
 .glass-card::before {
   content: '';
   position: absolute;
@@ -426,7 +449,7 @@ body::-webkit-scrollbar-thumb:hover {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.4) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(225, 29, 72, 0.45) 50%, rgba(168, 85, 247, 0.45) 80%, transparent 100%);
   opacity: 0.6;
   pointer-events: none;
 }
@@ -439,8 +462,8 @@ body::-webkit-scrollbar-thumb:hover {
   align-items: center;
   gap: 0.65rem;
   padding: 0.85rem 1.8rem;
-  background: linear-gradient(135deg, var(--color-amber), #D97706);
-  color: #000000;
+  background: linear-gradient(135deg, var(--accent), #BE123C);
+  color: #FFFFFF;
   font-family: var(--font-display);
   font-size: 0.92rem;
   font-weight: 600;
@@ -448,14 +471,14 @@ body::-webkit-scrollbar-thumb:hover {
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 18px var(--color-amber-glow);
+  box-shadow: 0 4px 18px var(--accent-glow);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
 }
 
 .btn-amber:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.4);
-  filter: brightness(1.06);
+  box-shadow: 0 6px 24px rgba(225, 29, 72, 0.45);
+  filter: brightness(1.08);
 }
 
 .btn-amber:active {
@@ -495,13 +518,21 @@ body::-webkit-scrollbar-thumb:hover {
   justify-content: center;
   width: 100%;
   padding: 0.75rem 1.2rem;
-  background: var(--color-amber);
-  color: #000000;
+  background: linear-gradient(135deg, var(--accent), #BE123C);
+  color: #FFFFFF;
   font-family: var(--font-display);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
   border-radius: 8px;
+  box-shadow: 0 4px 14px var(--accent-glow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+}
+
+.btn-amber-small:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
 }
 
 .btn-icon {
@@ -572,23 +603,23 @@ body::-webkit-scrollbar-thumb:hover {
   height: 6px;
   border-radius: 50%;
   background: var(--color-amber);
-  box-shadow: 0 0 8px var(--color-amber);
+  box-shadow: 0 0 8px var(--color-amber-glow);
 }
 
 .section-main-heading {
   font-family: var(--font-condensed);
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.04em;
   color: #FFFFFF;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .section-heading-line {
   width: 48px;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-amber), transparent);
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary), transparent);
   border-radius: 2px;
   margin-top: 0.2rem;
 }
@@ -612,8 +643,8 @@ body::-webkit-scrollbar-thumb:hover {
   margin: 0;
   background-color: var(--color-bg);
   background:
-    radial-gradient(ellipse 42% 58% at 50% 53%, rgba(175, 101, 7, 0.18) 0%, transparent 67%),
-    radial-gradient(ellipse 85% 65% at 50% 45%, #13141A 0%, #050507 100%);
+    radial-gradient(ellipse 42% 58% at 50% 53%, rgba(225, 29, 72, 0.12) 0%, transparent 67%),
+    radial-gradient(ellipse 85% 65% at 50% 45%, #141418 0%, #0A0A0A 100%);
 }
 
 /* Large Textured Background Typography Behind Portrait */
@@ -1419,11 +1450,11 @@ canvas.hero-portrait-img {
 }
 
 .skill-tab-btn.active {
-  background: var(--color-amber);
-  color: #000000;
-  border-color: var(--color-amber);
+  background: linear-gradient(135deg, var(--accent), #BE123C);
+  color: #FFFFFF;
+  border-color: var(--accent);
   font-weight: 600;
-  box-shadow: 0 4px 15px var(--color-amber-glow);
+  box-shadow: 0 4px 15px var(--accent-glow);
 }
 
 .skills-card-grid {
@@ -2220,5 +2251,28 @@ canvas.hero-portrait-img {
 
   .footer {
     padding: 2.2rem 1.2rem;
+  }
+}
+
+/* ==========================================================================
+   FORMAT 12 SCROLL REVEAL ANIMATIONS
+   ========================================================================== */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

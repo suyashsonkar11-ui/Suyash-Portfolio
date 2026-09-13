@@ -565,4 +565,67 @@
     }
   })();
 
+  /* ==========================================================================
+     7. FORMAT 12 SCROLL REVEAL ANIMATIONS (INTERSECTION OBSERVER)
+     ========================================================================== */
+  function initScrollReveals() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      return;
+    }
+
+    const revealSelectors = [
+      '.section-header-block',
+      '.about-intro-block',
+      '.about-switcher-card',
+      '.timeline-card',
+      '.exp-card',
+      '.skills-filter-tabs',
+      '.skill-item-card',
+      '.project-glass-card',
+      '.resume-block',
+      '.contact-card',
+      '.contact-form'
+    ];
+
+    const targets = document.querySelectorAll(revealSelectors.join(', '));
+    if (!targets.length) return;
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    targets.forEach(function (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top > viewportHeight * 0.92) {
+        el.classList.add('reveal-init');
+      }
+    });
+
+    const observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.12
+    });
+
+    targets.forEach(function (el) {
+      if (el.classList.contains('reveal-init')) {
+        observer.observe(el);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollReveals);
+  } else {
+    initScrollReveals();
+  }
+
 })();
