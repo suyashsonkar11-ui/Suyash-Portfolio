@@ -764,12 +764,19 @@ canvas.hero-portrait-img {
   font-size: 0.95rem;
   font-family: var(--font-body);
   font-weight: 400;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
 .social-link:hover {
-  opacity: 0.8;
-  transform: translateX(3px);
+  opacity: 1;
+  transform: translateX(4px);
+  color: #10B981;
+}
+
+.social-link:hover .social-icon-box {
+  border-color: #10B981;
+  color: #10B981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 
 .social-icon-box {
@@ -785,6 +792,7 @@ canvas.hero-portrait-img {
   font-family: var(--font-body);
   background: transparent;
   color: #ffffff;
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* ==========================================================================
@@ -1759,9 +1767,11 @@ canvas.hero-portrait-img {
 }
 
 .contact-social-pill:hover {
-  background: var(--color-amber);
-  color: #000000;
-  border-color: var(--color-amber);
+  background: rgba(16, 185, 129, 0.12);
+  color: #10B981;
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Contact Form */
