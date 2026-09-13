@@ -1417,16 +1417,17 @@ canvas.hero-portrait-img {
 }
 
 .project-title a:hover {
-  color: var(--color-amber-light);
+  color: #10B981;
 }
 
 .project-title a .project-link-icon {
   font-size: 0.85em;
-  color: var(--color-amber);
-  transition: transform var(--transition-fast);
+  color: #10B981;
+  transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
 .project-title a:hover .project-link-icon {
+  color: #10B981;
   transform: translate(2px, -2px);
 }
 
